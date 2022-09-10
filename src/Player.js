@@ -34,6 +34,23 @@ export default class Player{
         }
     }
 
+    turn(direction){
+        switch(direction){
+            case 'left':
+                this.playerElem.style.transform = 'rotate(-90deg)';
+                break;
+            case 'right':
+                this.playerElem.style.transform = 'rotate(90deg)';
+                break;
+            case 'up':
+                this.playerElem.style.transform = 'rotate(0deg)';
+                break;
+            case 'down':
+                this.playerElem.style.transform = 'rotate(180deg)';
+                break;
+        }
+    }
+
     move(){
         let newTopCoord = this.getCoords().top + this.direction.top;
         let newLeftCoord = this.getCoords().left + this.direction.left;
