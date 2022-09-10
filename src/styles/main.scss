@@ -17,6 +17,7 @@ body{
     backdrop-filter: blur(20px);
     visibility: hidden;
     opacity: 0;
+    z-index: 11;
 
     // .popup-screen__background-layer
     &__background-layer{

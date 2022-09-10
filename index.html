@@ -20,10 +20,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 10;
+        }
+
+        /* #assets{
+            display: none;
+        } */
+
+        #bullet{
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            z-index: 9;
+            background-color: black;
+            border-radius: 100%;
+            top: 0;
+            left: 0;
         }
     </style>
 </head>
 <body>
+    <!-- <div id="assets">
+        <div id="bullet"></div>
+    </div> -->
+    <div id="bullet"></div>
+
     <div id="cube">
         <img src="img/player/player-direction-arrow.svg" alt="">
     </div>
