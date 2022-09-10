@@ -15,17 +15,17 @@ export default class Game{
     start(){
         this.player = new Player();
         new KeyDetector(this, this.player)
+        this.draw()
     }
 
     draw(){
         this.player.move()
         this.animation = requestAnimationFrame(this.draw)
+        this.isAnimationRunning = true;
     }
 
     resume(){
-        this.animation = requestAnimationFrame(this.draw)
-        this.isAnimationRunning = true;
-
+        this.draw()
         this.popupScreen.hide()
     }
 
