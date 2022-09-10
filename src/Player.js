@@ -1,3 +1,5 @@
+import Bullet from "./Bullet";
+
 export default class Player{
     constructor(){
         this.playerElem = document.getElementById('cube');
@@ -20,7 +22,7 @@ export default class Player{
     }
 
     // place the player somewhere on the map
-    place(where){
+    appear(where){
         function updatePositionOnTheScreen(){
             this.playerElem.style.top = this.position.top;
             this.playerElem.style.left = this.position.left;
@@ -63,6 +65,12 @@ export default class Player{
         if(newLeftCoord > 0 && newRightCoord < window.innerWidth){
             this.playerElem.style.left = newLeftCoord + 'px';
         }
+    }
+
+    shoot(){
+        console.log('Äshoot');
+        let bullet = new Bullet(this)
+        bullet.move()
     }
 
     getCoords(){
