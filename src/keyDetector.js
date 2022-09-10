@@ -22,10 +22,6 @@ export default class keyDetector {
                 case 'ArrowDown':
                     if(player.direction.top > 0) player.direction.top = 0;
                     break;
-                case 'Escape':
-                    if (game.isAnimationRunning) game.pause()
-                    else game.resume()
-                    break;
             }
         }
 
@@ -63,6 +59,9 @@ export default class keyDetector {
                 case 'Escape':
                     if (game.isAnimationRunning) game.pause();
                     else game.resume();
+                    break;
+                case 'Space':
+                    player.shoot()
                     break;
             }
         })
