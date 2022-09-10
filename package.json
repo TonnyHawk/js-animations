@@ -10,6 +10,7 @@
     "@babel/preset-env": "^7.19.0",
     "@webpack-cli/generators": "^2.5.0",
     "babel-loader": "^8.2.5",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "mini-css-extract-plugin": "^2.6.1",
     "sass": "^1.54.9",

@@ -3,6 +3,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -19,6 +20,9 @@ const config = {
     devServer: {
         open: true,
         host: 'localhost',
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -58,6 +62,11 @@ module.exports = () => {
         config.mode = 'production';
         
         config.plugins.push(new MiniCssExtractPlugin());
+        config.plugins.push(new CopyPlugin({
+            patterns: [
+                { from: "./public", to: "./" },
+              ],
+        }))
         
         
     } else {
