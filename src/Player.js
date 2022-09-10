@@ -6,17 +6,49 @@ export default class Player{
             left: window.innerWidth / 2 - 90 + 'px'
         }
 
-        this.speed = 3;
+        this.speed = 6;
         this.direction = {
-            top: this.speed * 1,
+            top: 0,
             left: 0
         }
+
         this.playerElem.style.top = this.position.top;
         this.playerElem.style.left = this.position.left;
+
+        this.height = parseInt(getComputedStyle(this.playerElem).height);
+        this.width = parseInt(getComputedStyle(this.playerElem).width);
+    }
+
+    // place the player somewhere on the map
+    place(where){
+        function updatePositionOnTheScreen(){
+            this.playerElem.style.top = this.position.top;
+            this.playerElem.style.left = this.position.left;
+        }
+        switch(where){
+            case 'init':
+                this.position.top = window.innerHeight / 2 - 50 + 'px';
+                this.position.left = window.innerWidth / 2 - 90 + 'px';
+                updatePositionOnTheScreen();
+                break;
+        }
     }
 
     move(){
-        this.playerElem.style.top = parseInt(this.playerElem.style.top) + this.direction.top + 'px';
-        this.playerElem.style.left = parseInt(this.playerElem.style.left) + this.direction.left + 'px';
+        let newTopCoord = this.getCoords().top + this.direction.top;
+        let newLeftCoord = this.getCoords().left + this.direction.left;
+        let newBottomCoord = this.getCoords().bottom + this.direction.top;
+        let newRightCoord = this.getCoords().right + this.direction.left;
+
+        if(newTopCoord > 0 && newBottomCoord < window.innerHeight){
+            this.playerElem.style.top = newTopCoord + 'px';
+        }
+        if(newLeftCoord > 0 && newRightCoord < window.innerWidth){
+            this.playerElem.style.left = newLeftCoord + 'px';
+        }
+    }
+
+    getCoords(){
+        return this.playerElem.getBoundingClientRect()
     }
 }
