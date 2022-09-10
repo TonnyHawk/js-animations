@@ -22,7 +22,7 @@ export default class keyDetector{
                     player.direction.top = player.speed * 1
                     player.direction.left = 0
                     break;
-                case 'space':
+                case 'Escape':
                     if(game.isAnimationRunning) game.pause()
                     else game.resume()
                     break;
