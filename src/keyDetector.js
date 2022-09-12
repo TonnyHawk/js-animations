@@ -33,28 +33,20 @@ export default class keyDetector {
             // console.log(key);
             switch (key) {
                 case 'ArrowLeft':
-                    player.direction.left = player.speed * -1;
-                    player.direction.top = 0;
+                    player.setDirection('left');
                     clearTimeout(keyUpHandlerDelay);
-                    player.turn('left');
                     break;
                 case 'ArrowRight':
-                    player.direction.left = player.speed;
-                    player.direction.top = 0;
+                    player.setDirection('right');
                     clearTimeout(keyUpHandlerDelay);
-                    player.turn('right');
                     break;
                 case 'ArrowUp':
-                    player.direction.top = player.speed * -1;
-                    player.direction.left = 0;
+                    player.setDirection('up');
                     clearTimeout(keyUpHandlerDelay);
-                    player.turn('up');
                     break;
                 case 'ArrowDown':
-                    player.direction.top = player.speed * 1;
-                    player.direction.left = 0;
+                    player.setDirection('down');
                     clearTimeout(keyUpHandlerDelay);
-                    player.turn('down');
                     break;
                 case 'Escape':
                     if (game.isAnimationRunning) game.pause();
@@ -62,6 +54,7 @@ export default class keyDetector {
                     break;
                 case 'Space':
                     player.shoot()
+                    console.log(player.getDirectionName())
                     break;
             }
         })
