@@ -1,7 +1,8 @@
 import Bullet from "./Bullet";
 
 export default class Player{
-    constructor(){
+    constructor(game){
+        this.game = game
         this.playerElem = document.getElementById('cube');
         this.position = {
             top:  window.innerHeight / 2 - 50 + 'px',
@@ -13,6 +14,8 @@ export default class Player{
             top: 0,
             left: 0
         }
+
+        this.moveVectorName = 'up';
 
         this.playerElem.style.top = this.position.top;
         this.playerElem.style.left = this.position.left;
@@ -51,6 +54,7 @@ export default class Player{
                 this.playerElem.style.transform = 'rotate(180deg)';
                 break;
         }
+        this.moveVectorName = direction
     }
 
     move(){
@@ -69,11 +73,39 @@ export default class Player{
 
     shoot(){
         console.log('Äshoot');
-        let bullet = new Bullet(this)
-        bullet.move()
+        this.game.objects.push(new Bullet(this))
     }
 
     getCoords(){
         return this.playerElem.getBoundingClientRect()
+    }
+
+    getDirectionName(){
+        return this.moveVectorName
+    }
+
+    setDirection(direction){
+        switch(direction){
+            case 'left':
+                this.direction.left = this.speed * -1;
+                this.direction.top = 0;
+                this.turn('left');
+                break;
+            case 'right':
+                this.direction.left = this.speed;
+                this.direction.top = 0;
+                this.turn('right');
+                break;
+            case 'up':
+                this.direction.top = this.speed * -1;
+                this.direction.left = 0;
+                this.turn('up');
+                break;
+            case 'down':
+                this.direction.top = this.speed * 1;
+                this.direction.left = 0;
+                this.turn('down');
+                break;
+        }
     }
 }
