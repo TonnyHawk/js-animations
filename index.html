@@ -23,9 +23,9 @@
             z-index: 10;
         }
 
-        /* #assets{
+        #assets{
             display: none;
-        } */
+        }
 
         #bullet{
             width: 10px;
@@ -37,17 +37,25 @@
             top: 0;
             left: 0;
         }
+
+        #screen{
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
-    <!-- <div id="assets">
+    <div id="assets">
         <div id="bullet"></div>
-    </div> -->
+        <img src="img/player/player-direction-arrow.svg" alt="" id="player-direction-arrow">
+    </div>
+
     <div id="bullet"></div>
 
-    <div id="cube">
+    <!-- <div id="cube">
         <img src="img/player/player-direction-arrow.svg" alt="">
-    </div>
+    </div> -->
+
+    <canvas id="screen" width="500" height="400"></canvas>
 
     <div class="popup-screen">
         <div class="popup-screen__background-layer"></div>
