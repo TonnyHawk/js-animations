@@ -8,6 +8,9 @@ export default class Game{
         this.animation;
         this.isAnimationRunning = false
 
+        this.canvasElement = document.getElementById('screen');
+        this.screen = this.canvasElement.getContext('2d');
+
         this.draw = this.draw.bind(this)
         this.resume = this.resume.bind(this)
         this.popupScreen = new PopupScreen(this)
@@ -23,6 +26,7 @@ export default class Game{
     }
 
     draw(){
+        this.screen.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height)
         this.objects.forEach(gameObject=>gameObject.move())
         this.animation = requestAnimationFrame(this.draw)
         this.isAnimationRunning = true;
