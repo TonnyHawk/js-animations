@@ -23,29 +23,38 @@ export default class Player{
     }
 
     turn(direction){
-        switch(direction){
-            case 'left':
-                // this.playerElem.style.transform = 'rotate(-90deg)';
-                break;
-            case 'right':
-                // this.playerElem.style.transform = 'rotate(90deg)';
-                break;
-            case 'up':
-                // this.playerElem.style.transform = 'rotate(0deg)';
-                break;
-            case 'down':
-                // this.playerElem.style.transform = 'rotate(180deg)';
-                break;
-        }
         this.moveVectorName = direction
     }
 
     draw(){
         this.game.screen.fillStyle = 'red';
         this.game.screen.fillRect(this.position.left, this.position.top, this.width, this.height)
+        
         let arrowImage = document.getElementById('player-direction-arrow');
         let shrinkRatio = this.height / arrowImage.height;
-        this.game.screen.drawImage(arrowImage, this.position.left + this.width / 2 - 16.5, this.position.top, this.width * shrinkRatio, this.height)
+
+        let rotateObject = (angle)=>{
+            this.game.screen.save()
+            this.game.screen.translate(this.position.left + this.width / 2, this.position.top + this.height / 2)
+            this.game.screen.rotate(angle * Math.PI/180)
+            this.game.screen.fillStyle = 'blue';
+            this.game.screen.drawImage(arrowImage, -1 * this.width / 2 + 8.5, -1 * this.height / 2, this.width * shrinkRatio, this.height)
+            this.game.screen.restore()
+        }
+        switch(this.moveVectorName){
+            case 'left':
+                rotateObject(-90);
+                break;
+            case 'right':
+                rotateObject(90);
+                break;
+            case 'up':
+                rotateObject(0);
+                break;
+            case 'down':
+                rotateObject(180);
+                break;
+        }
     }
 
     move(){
