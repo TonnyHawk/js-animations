@@ -3,10 +3,12 @@ import Bullet from "./Bullet";
 export default class Player{
     constructor(game){
         this.game = game
-        this.playerElem = document.getElementById('cube');
+
+        this.height = 50;
+        this.width = 50;
         this.position = {
-            top:  window.innerHeight / 2 - 50 + 'px',
-            left: window.innerWidth / 2 - 90 + 'px'
+            top:  this.game.canvasElement.height / 2 - this.height / 2,
+            left: this.game.canvasElement.width / 2 - this.width / 2
         }
 
         this.speed = 6;
@@ -17,44 +19,33 @@ export default class Player{
 
         this.moveVectorName = 'up';
 
-        this.playerElem.style.top = this.position.top;
-        this.playerElem.style.left = this.position.left;
-
-        this.height = parseInt(getComputedStyle(this.playerElem).height);
-        this.width = parseInt(getComputedStyle(this.playerElem).width);
-    }
-
-    // place the player somewhere on the map
-    appear(where){
-        function updatePositionOnTheScreen(){
-            this.playerElem.style.top = this.position.top;
-            this.playerElem.style.left = this.position.left;
-        }
-        switch(where){
-            case 'init':
-                this.position.top = window.innerHeight / 2 - 50 + 'px';
-                this.position.left = window.innerWidth / 2 - 90 + 'px';
-                updatePositionOnTheScreen();
-                break;
-        }
+        this.draw()
     }
 
     turn(direction){
         switch(direction){
             case 'left':
-                this.playerElem.style.transform = 'rotate(-90deg)';
+                // this.playerElem.style.transform = 'rotate(-90deg)';
                 break;
             case 'right':
-                this.playerElem.style.transform = 'rotate(90deg)';
+                // this.playerElem.style.transform = 'rotate(90deg)';
                 break;
             case 'up':
-                this.playerElem.style.transform = 'rotate(0deg)';
+                // this.playerElem.style.transform = 'rotate(0deg)';
                 break;
             case 'down':
-                this.playerElem.style.transform = 'rotate(180deg)';
+                // this.playerElem.style.transform = 'rotate(180deg)';
                 break;
         }
         this.moveVectorName = direction
+    }
+
+    draw(){
+        this.game.screen.fillStyle = 'red';
+        this.game.screen.fillRect(this.position.left, this.position.top, this.width, this.height)
+        let arrowImage = document.getElementById('player-direction-arrow');
+        let shrinkRatio = this.height / arrowImage.height;
+        this.game.screen.drawImage(arrowImage, this.position.left + this.width / 2 - 16.5, this.position.top, this.width * shrinkRatio, this.height)
     }
 
     move(){
@@ -63,12 +54,14 @@ export default class Player{
         let newBottomCoord = this.getCoords().bottom + this.direction.top;
         let newRightCoord = this.getCoords().right + this.direction.left;
 
-        if(newTopCoord > 0 && newBottomCoord < window.innerHeight){
-            this.playerElem.style.top = newTopCoord + 'px';
+        if(newTopCoord > 0 && newBottomCoord < this.game.canvasElement.height){
+            this.position.top = newTopCoord
         }
-        if(newLeftCoord > 0 && newRightCoord < window.innerWidth){
-            this.playerElem.style.left = newLeftCoord + 'px';
+        if(newLeftCoord >=0 && newRightCoord < this.game.canvasElement.width){
+            this.position.left = newLeftCoord
         }
+
+        this.draw()
     }
 
     shoot(){
@@ -77,7 +70,12 @@ export default class Player{
     }
 
     getCoords(){
-        return this.playerElem.getBoundingClientRect()
+        return {
+            top: this.position.top,
+            left: this.position.left,
+            bottom: this.position.top + this.height,
+            right: this.position.left + this.width
+        }
     }
 
     getDirectionName(){
