@@ -72,20 +72,20 @@ export default class Enemy extends GameObject{
         let deltaTop = getModulus(targetTop - selfTop)
         let deltaLeft = getModulus(targetLeft - selfLeft)
 
-        
-
-        // if(deltaTop > this.shootRange || deltaLeft > this.shootRange){
-        //     if(deltaTop > this.shootRange){
-        //         if(selfTop > targetTop) this.setDirection('up')
-        //         else if(selfTop < targetTop) this.setDirection('down')
-        //     }else if(deltaLeft > this.shootRange){
-        //         if(selfLeft > targetLeft) this.setDirection('left')
-        //         else if(selfLeft < targetLeft) this.setDirection('right')
-        //     }
-        // }else{
-        //     this.direction.top = 0;
-        //     this.direction.left = 0;
-        // }
+        if(deltaTop !== 0){
+            let speed = this.speed;
+            if(deltaTop < this.speed) speed = deltaTop
+            if(selfTop > targetTop) this.setDirection('up', speed)
+            else if(selfTop < targetTop) this.setDirection('down', speed)
+        }else if(deltaLeft !== 0){
+            let speed = this.speed;
+            if(deltaLeft < this.speed) speed = deltaLeft
+            if(selfLeft > targetLeft) this.setDirection('left', speed)
+            else if(selfLeft < targetLeft) this.setDirection('right', speed)
+        }else{
+            this.direction.left = 0;
+            this.direction.top = 0;
+        }
     }
 
     move(){
@@ -111,25 +111,25 @@ export default class Enemy extends GameObject{
         this.game.objects.push(new Bullet(this))
     }
 
-    setDirection(direction){
+    setDirection(direction, speed=this.speed){
         switch(direction){
             case 'left':
-                this.direction.left = this.speed * -1;
+                this.direction.left = speed * -1;
                 this.direction.top = 0;
                 this.turn('left');
                 break;
             case 'right':
-                this.direction.left = this.speed;
+                this.direction.left = speed;
                 this.direction.top = 0;
                 this.turn('right');
                 break;
             case 'up':
-                this.direction.top = this.speed * -1;
+                this.direction.top = speed * -1;
                 this.direction.left = 0;
                 this.turn('up');
                 break;
             case 'down':
-                this.direction.top = this.speed * 1;
+                this.direction.top = speed * 1;
                 this.direction.left = 0;
                 this.turn('down');
                 break;
