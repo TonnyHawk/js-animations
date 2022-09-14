@@ -54,7 +54,6 @@ export default class keyDetector {
                     break;
                 case 'Space':
                     player.shoot()
-                    console.log(player.getDirectionName())
                     break;
             }
         })
