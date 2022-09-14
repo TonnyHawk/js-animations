@@ -80,25 +80,25 @@ export default class Player extends GameObject{
         this.game.objects.push(new Bullet(this))
     }
 
-    setDirection(direction){
+    setDirection(direction, speed=this.speed){
         switch(direction){
             case 'left':
-                this.direction.left = this.speed * -1;
+                this.direction.left = speed * -1;
                 this.direction.top = 0;
                 this.turn('left');
                 break;
             case 'right':
-                this.direction.left = this.speed;
+                this.direction.left = speed;
                 this.direction.top = 0;
                 this.turn('right');
                 break;
             case 'up':
-                this.direction.top = this.speed * -1;
+                this.direction.top = speed * -1;
                 this.direction.left = 0;
                 this.turn('up');
                 break;
             case 'down':
-                this.direction.top = this.speed * 1;
+                this.direction.top = speed * 1;
                 this.direction.left = 0;
                 this.turn('down');
                 break;
