@@ -1,7 +1,9 @@
 import Bullet from "./Bullet";
+import GameObject from "./GameObject";
 
-export default class Player{
+export default class Player extends GameObject{
     constructor(game){
+        super()
         this.game = game
 
         this.height = 50;
@@ -76,19 +78,6 @@ export default class Player{
     shoot(){
         console.log('Äshoot');
         this.game.objects.push(new Bullet(this))
-    }
-
-    getCoords(){
-        return {
-            top: this.position.top,
-            left: this.position.left,
-            bottom: this.position.top + this.height,
-            right: this.position.left + this.width
-        }
-    }
-
-    getDirectionName(){
-        return this.moveVectorName
     }
 
     setDirection(direction){

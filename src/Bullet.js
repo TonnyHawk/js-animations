@@ -1,6 +1,8 @@
+import GameObject from "./GameObject";
 
-export default class Bullet{
+export default class Bullet extends GameObject{
     constructor(player){
+        super()
 
         this.id = Date.now() * Math.floor(Math.random() * 100);
         this.player = player
@@ -24,10 +26,6 @@ export default class Bullet{
 
         this.position = {}
         this.setPosition()
-    }
-
-    getDirectionName(){
-        return this.moveVectorName
     }
 
     setDirection(){
@@ -116,14 +114,5 @@ export default class Bullet{
     destroy(){
         let thisIndex = this.player.game.objects.findIndex(el=>el.id===this.id)
         this.player.game.objects.splice(thisIndex, 1)
-    }
-
-    getCoords(){
-        return {
-            top: this.position.top,
-            left: this.position.left,
-            bottom: this.position.top + this.height,
-            right: this.position.left + this.width
-        }
     }
 }
