@@ -1,5 +1,6 @@
 import { getModulus } from "../utils";
 import GameObject from "./GameObject";
+import Bullet from "./Bullet";
 
 export default class Enemy extends GameObject{
     constructor(game){
@@ -21,9 +22,11 @@ export default class Enemy extends GameObject{
             left: 0
         }
 
-        this.shootRange = 100;
+        this.shootRange = 200;
 
         this.moveVectorName = 'up';
+
+        this.shoot = this.shoot.bind(this)
 
         this.draw()
     }
@@ -63,7 +66,7 @@ export default class Enemy extends GameObject{
         }
     }
 
-    followTheTarget(){
+    followTheTarget(callback){
         let targetTop = this.target.position.top
         let targetLeft = this.target.position.left
         let selfTop = this.position.top
@@ -72,12 +75,17 @@ export default class Enemy extends GameObject{
         let deltaTop = getModulus(targetTop - selfTop)
         let deltaLeft = getModulus(targetLeft - selfLeft)
 
-        if(deltaTop !== 0){
+        let range = this.shootRange
+        if(deltaTop !== 0 && deltaLeft !== 0){
+            range = 0
+        }
+
+        if(deltaTop >= range){
             let speed = this.speed;
             if(deltaTop < this.speed) speed = deltaTop
             if(selfTop > targetTop) this.setDirection('up', speed)
             else if(selfTop < targetTop) this.setDirection('down', speed)
-        }else if(deltaLeft !== 0){
+        }else if(deltaLeft >= range){
             let speed = this.speed;
             if(deltaLeft < this.speed) speed = deltaLeft
             if(selfLeft > targetLeft) this.setDirection('left', speed)
@@ -85,11 +93,18 @@ export default class Enemy extends GameObject{
         }else{
             this.direction.left = 0;
             this.direction.top = 0;
+            if(selfLeft > targetLeft) this.turn('left')
+            else if(selfLeft < targetLeft) this.turn('right')
+            if(selfTop > targetTop) this.turn('up')
+            else if(selfTop < targetTop) this.turn('down')
+
+            callback()
         }
+
     }
 
     move(){
-        this.followTheTarget()
+        this.followTheTarget(this.shoot)
 
         let newTopCoord = this.getCoords().top + this.direction.top;
         let newLeftCoord = this.getCoords().left + this.direction.left;
