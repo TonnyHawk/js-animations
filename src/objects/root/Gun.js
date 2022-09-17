@@ -1,3 +1,6 @@
+import { getTimestamp } from "../../utils";
+import Bullet from "./Bullet";
+
 export default class Gun{
     constructor(owner){
         this.clipSize = 3;
@@ -6,7 +9,7 @@ export default class Gun{
         this.isReloading = false;
         // time betwen two shots
         this.remainingTime = {
-            min: 500
+            min: 300
         }
         this.owner = owner;
         this.lastShotTime = getTimestamp();
@@ -15,9 +18,10 @@ export default class Gun{
         this.isReloading = true
         console.log('reloading');
         setTimeout(()=>{
-            console.log(this);
             this.isReloading = false
             this.bulletsInClip = this.clipSize
+            console.log(this.owner.id);
+            console.log('gun is ready to shot');
         }, 2000)
     }
     shot(){

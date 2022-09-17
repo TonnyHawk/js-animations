@@ -1,7 +1,9 @@
-import Bullet from "./Bullet";
+import Bullet from "./root/Bullet";
 import GameObject from "./GameObject";
+import Person from "./root/Person";
+import Gun from "./root/Gun";
 
-export default class Player extends GameObject{
+export default class Player extends Person{
     constructor(game){
         super()
         this.game = game
@@ -19,13 +21,11 @@ export default class Player extends GameObject{
             left: 0
         }
 
+        this.gun = new Gun(this)
+
         this.moveVectorName = 'up';
 
         this.draw()
-    }
-
-    turn(direction){
-        this.moveVectorName = direction
     }
 
     draw(){
@@ -76,32 +76,6 @@ export default class Player extends GameObject{
     }
 
     shoot(){
-        console.log('Äshoot');
-        this.game.objects.push(new Bullet(this))
-    }
-
-    setDirection(direction, speed=this.speed){
-        switch(direction){
-            case 'left':
-                this.direction.left = speed * -1;
-                this.direction.top = 0;
-                this.turn('left');
-                break;
-            case 'right':
-                this.direction.left = speed;
-                this.direction.top = 0;
-                this.turn('right');
-                break;
-            case 'up':
-                this.direction.top = speed * -1;
-                this.direction.left = 0;
-                this.turn('up');
-                break;
-            case 'down':
-                this.direction.top = speed * 1;
-                this.direction.left = 0;
-                this.turn('down');
-                break;
-        }
+        this.gun.shot()
     }
 }

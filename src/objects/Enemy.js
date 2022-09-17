@@ -1,12 +1,14 @@
 import { getModulus, getTimestamp, getTimestampInSeconds } from "../utils";
 import GameObject from "./GameObject";
-import Bullet from "./Bullet";
-import Gun from "./Gun";
+import Bullet from "./root/Bullet";
+import Gun from "./root/Gun";
+import Person from "./root/Person";
 
-export default class Enemy extends GameObject{
+export default class Enemy extends Person{
     constructor(game){
         super()
         this.game = game
+
         this.target = game.player
 
         this.height = 50;
@@ -30,10 +32,6 @@ export default class Enemy extends GameObject{
         this.gun = new Gun(this);
 
         this.draw()
-    }
-
-    turn(direction){
-        this.moveVectorName = direction
     }
 
     draw(){
@@ -124,30 +122,5 @@ export default class Enemy extends GameObject{
 
     fight(){
         this.gun.shot()
-    }
-
-    setDirection(direction, speed=this.speed){
-        switch(direction){
-            case 'left':
-                this.direction.left = speed * -1;
-                this.direction.top = 0;
-                this.turn('left');
-                break;
-            case 'right':
-                this.direction.left = speed;
-                this.direction.top = 0;
-                this.turn('right');
-                break;
-            case 'up':
-                this.direction.top = speed * -1;
-                this.direction.left = 0;
-                this.turn('up');
-                break;
-            case 'down':
-                this.direction.top = speed * 1;
-                this.direction.left = 0;
-                this.turn('down');
-                break;
-        }
     }
 }
