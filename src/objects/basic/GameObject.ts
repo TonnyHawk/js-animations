@@ -1,4 +1,4 @@
- import {moveVector, coordinate} from '../types'
+ import {moveVector, coordinate} from '../../types'
 
 export default class GameObject{
     id: number

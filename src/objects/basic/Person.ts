@@ -1,5 +1,5 @@
 import Game from "../Game";
-import GameObject from "../GameObject";
+import GameObject from "./GameObject";
 
 type moveVector = 'up' | 'down' | 'left' | 'right'
 interface coordinate {

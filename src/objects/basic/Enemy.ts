@@ -2,7 +2,7 @@ import { getModulus } from "../../utils";
 import Gun from "./Gun";
 import Person from "./Person";
 import Game from "../Game";
-import GameObject from "../GameObject";
+import GameObject from "./GameObject";
 
 export default class Enemy extends Person{
     game: Game

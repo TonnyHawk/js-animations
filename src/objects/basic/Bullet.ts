@@ -1,4 +1,4 @@
-import GameObject from "../GameObject";
+import GameObject from "./GameObject";
 import Person from "./Person";
 import { coordinate } from "../../types";
 

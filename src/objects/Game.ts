@@ -2,7 +2,7 @@ import KeyDetector from './keyDetector';
 import Player from './basic/Player';
 import PopupScreen from './PopupScreen';
 import Enemy from './basic/Enemy';
-import GameObject from './GameObject';
+import GameObject from './basic/GameObject';
 
 export default class Game{
     animation: ReturnType<typeof window.requestAnimationFrame> | null
