@@ -1,7 +1,7 @@
 import Bullet from "./Bullet";
 import GameObject from "../GameObject";
 import Person from "./Person";
-import Gun from "./Gun";
+import Gun from "./Gun.ts";
 
 export default class Player extends Person{
     constructor(game){

@@ -1,7 +1,7 @@
 import { getModulus, getTimestamp, getTimestampInSeconds } from "../../utils";
 import GameObject from "../GameObject";
 import Bullet from "./Bullet";
-import Gun from "./Gun";
+import Gun from "./Gun.ts";
 import Person from "./Person";
 
 export default class Enemy extends Person{
