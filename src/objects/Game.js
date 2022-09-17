@@ -1,8 +1,8 @@
 import KeyDetector from './keyDetector';
-import Player from './Player';
+import Player from './basic/Player';
 import PopupScreen from './PopupScreen';
 import Bullet from './basic/Bullet';
-import Enemy from './Enemy';
+import Enemy from './basic/Enemy';
 
 export default class Game{
     constructor(){

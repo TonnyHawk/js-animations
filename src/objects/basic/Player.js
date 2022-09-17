@@ -1,41 +1,35 @@
-import { getModulus, getTimestamp, getTimestampInSeconds } from "../utils";
-import GameObject from "./GameObject";
-import Bullet from "./basic/Bullet";
-import Gun from "./basic/Gun";
-import Person from "./basic/Person";
+import Bullet from "./Bullet";
+import GameObject from "../GameObject";
+import Person from "./Person";
+import Gun from "./Gun";
 
-export default class Enemy extends Person{
+export default class Player extends Person{
     constructor(game){
         super()
         this.game = game
 
-        this.target = game.player
-
         this.height = 50;
         this.width = 50;
         this.position = {
-            top:  0,
-            left: 0
+            top:  this.game.canvasElement.height / 2 - this.height / 2,
+            left: this.game.canvasElement.width / 2 - this.width / 2
         }
 
-        this.speed = this.target.speed - 3;
-        this.temporarySpeed = this.speed;
+        this.speed = 6;
         this.direction = {
             top: 0,
             left: 0
         }
 
+        this.gun = new Gun(this)
+
         this.moveVectorName = 'up';
-
-        this.fight = this.fight.bind(this)
-
-        this.gun = new Gun(this);
 
         this.draw()
     }
 
     draw(){
-        this.game.screen.fillStyle = 'blue';
+        this.game.screen.fillStyle = 'red';
         this.game.screen.fillRect(this.position.left, this.position.top, this.width, this.height)
         
         let arrowImage = document.getElementById('player-direction-arrow');
@@ -65,45 +59,7 @@ export default class Enemy extends Person{
         }
     }
 
-    followTheTarget(callback){
-        let targetTop = this.target.position.top
-        let targetLeft = this.target.position.left
-        let selfTop = this.position.top
-        let selfLeft = this.position.left
-
-        let deltaTop = getModulus(targetTop - selfTop)
-        let deltaLeft = getModulus(targetLeft - selfLeft)
-
-        let range = this.gun.shotRange
-        if(deltaTop !== 0 && deltaLeft !== 0){
-            range = 0
-        }
-
-        if(deltaTop >= range){
-            let speed = this.speed;
-            if(deltaTop < this.speed) speed = deltaTop
-            if(selfTop > targetTop) this.setDirection('up', speed)
-            else if(selfTop < targetTop) this.setDirection('down', speed)
-        }else if(deltaLeft >= range){
-            let speed = this.speed;
-            if(deltaLeft < this.speed) speed = deltaLeft
-            if(selfLeft > targetLeft) this.setDirection('left', speed)
-            else if(selfLeft < targetLeft) this.setDirection('right', speed)
-        }else{
-            this.stop()
-            if(selfLeft > targetLeft) this.turn('left')
-            else if(selfLeft < targetLeft) this.turn('right')
-            if(selfTop > targetTop) this.turn('up')
-            else if(selfTop < targetTop) this.turn('down')
-
-            callback()
-        }
-
-    }
-
     move(){
-        this.followTheTarget(this.fight)
-
         let newTopCoord = this.getCoords().top + this.direction.top;
         let newLeftCoord = this.getCoords().left + this.direction.left;
         let newBottomCoord = this.getCoords().bottom + this.direction.top;
@@ -119,7 +75,7 @@ export default class Enemy extends Person{
         this.draw()
     }
 
-    fight(){
+    shoot(){
         this.gun.shot()
     }
 }
