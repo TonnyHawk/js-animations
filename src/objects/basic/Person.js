@@ -34,4 +34,9 @@ export default class Person extends GameObject{
                 break;
         }
     }
+
+    stop(){
+        this.direction.left = 0;
+        this.direction.top = 0; 
+    }
 }

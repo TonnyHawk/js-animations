@@ -1,8 +1,8 @@
 import { getModulus, getTimestamp, getTimestampInSeconds } from "../utils";
 import GameObject from "./GameObject";
-import Bullet from "./root/Bullet";
-import Gun from "./root/Gun";
-import Person from "./root/Person";
+import Bullet from "./basic/Bullet";
+import Gun from "./basic/Gun";
+import Person from "./basic/Person";
 
 export default class Enemy extends Person{
     constructor(game){
@@ -90,8 +90,7 @@ export default class Enemy extends Person{
             if(selfLeft > targetLeft) this.setDirection('left', speed)
             else if(selfLeft < targetLeft) this.setDirection('right', speed)
         }else{
-            this.direction.left = 0;
-            this.direction.top = 0;
+            this.stop()
             if(selfLeft > targetLeft) this.turn('left')
             else if(selfLeft < targetLeft) this.turn('right')
             if(selfTop > targetTop) this.turn('up')
