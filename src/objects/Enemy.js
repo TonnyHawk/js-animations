@@ -1,6 +1,42 @@
-import { getModulus } from "../utils";
+import { getModulus, getTimestamp, getTimestampInSeconds } from "../utils";
 import GameObject from "./GameObject";
 import Bullet from "./Bullet";
+
+class Gun{
+    constructor(owner){
+        this.clipSize = 3;
+        this.bulletsInClip = 3;
+        this.shotRange = 200;
+        this.isReloading = false;
+        // time betwen two shots
+        this.remainingTime = {
+            min: 500
+        }
+        this.owner = owner;
+        this.lastShotTime = getTimestamp();
+    }
+    reload(){
+        this.isReloading = true
+        console.log('reloading');
+        setTimeout(()=>{
+            console.log(this);
+            this.isReloading = false
+            this.bulletsInClip = this.clipSize
+        }, 2000)
+    }
+    shot(){
+        if(this.bulletsInClip > 0){
+            let now = getTimestamp()
+            if((now - this.lastShotTime) > this.remainingTime.min){
+                this.owner.game.objects.push(new Bullet(this.owner))
+                this.bulletsInClip -= 1;
+                this.lastShotTime = now
+            }
+        }else if(this.bulletsInClip === 0 && this.isReloading === false){
+            this.reload()
+        }
+    }
+}
 
 export default class Enemy extends GameObject{
     constructor(game){
@@ -22,11 +58,11 @@ export default class Enemy extends GameObject{
             left: 0
         }
 
-        this.shootRange = 200;
-
         this.moveVectorName = 'up';
 
-        this.shoot = this.shoot.bind(this)
+        this.fight = this.fight.bind(this)
+
+        this.gun = new Gun(this);
 
         this.draw()
     }
@@ -75,7 +111,7 @@ export default class Enemy extends GameObject{
         let deltaTop = getModulus(targetTop - selfTop)
         let deltaLeft = getModulus(targetLeft - selfLeft)
 
-        let range = this.shootRange
+        let range = this.gun.shotRange
         if(deltaTop !== 0 && deltaLeft !== 0){
             range = 0
         }
@@ -104,7 +140,7 @@ export default class Enemy extends GameObject{
     }
 
     move(){
-        this.followTheTarget(this.shoot)
+        this.followTheTarget(this.fight)
 
         let newTopCoord = this.getCoords().top + this.direction.top;
         let newLeftCoord = this.getCoords().left + this.direction.left;
@@ -121,9 +157,8 @@ export default class Enemy extends GameObject{
         this.draw()
     }
 
-    shoot(){
-        console.log('Äshoot');
-        this.game.objects.push(new Bullet(this))
+    fight(){
+        this.gun.shot()
     }
 
     setDirection(direction, speed=this.speed){
