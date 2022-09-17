@@ -1,17 +1,33 @@
+import Game from "../Game";
 import GameObject from "../GameObject";
 
+type moveVector = 'up' | 'down' | 'left' | 'right'
+interface coordinate {
+    top: number,
+    left: number
+}
+
 export default class Person extends GameObject{
-    constructor(){
+    speed: number;
+    direction: coordinate;
+    gun?: object
+    game: Game
+    constructor(game: Game){
         super()
         this.speed = 6
+        this.direction = {
+            top: 0,
+            left: 0
+        }
+        this.game = game
     }
 
-    turn(direction){
-        this.moveVectorName = direction
+    turn(vector: moveVector){
+        this.moveVectorName = vector
     }
 
-    setDirection(direction, speed=this.speed){
-        switch(direction){
+    setDirection(vector: moveVector, speed=this.speed){
+        switch(vector){
             case 'left':
                 this.direction.left = speed * -1;
                 this.direction.top = 0;

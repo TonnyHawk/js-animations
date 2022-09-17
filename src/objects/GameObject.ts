@@ -1,6 +1,20 @@
+ import {moveVector, coordinate} from '../types'
+
 export default class GameObject{
+    id: number
+    moveVectorName: moveVector;
+    position: coordinate
+    height: number
+    width: number
     constructor(){
         this.id = Date.now() * Math.floor(Math.random() * 100);
+        this.moveVectorName = 'up';
+        this.position = {
+            top: 0,
+            left: 0
+        }
+        this.height = 10;
+        this.width = 10;
     }
     getDirectionName(){
         return this.moveVectorName
@@ -13,4 +27,5 @@ export default class GameObject{
             right: this.position.left + this.width
         }
     }
+    move(){}
 }

@@ -2,7 +2,19 @@ import { getTimestamp } from "../../utils";
 import Bullet from "./Bullet";
 
 export default class Gun{
-    constructor(owner){
+
+    clipSize: number;
+    bulletsInClip: number;
+    shotRange: number;
+    isReloading: boolean
+    remainingTime: {
+        min: number;
+        max?: number;
+    }
+    owner: any
+    lastShotTime: number
+
+    constructor(owner: any){
         this.clipSize = 3;
         this.bulletsInClip = 3;
         this.shotRange = 200;

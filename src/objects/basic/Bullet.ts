@@ -1,7 +1,16 @@
 import GameObject from "../GameObject";
+import Person from "./Person";
+import { coordinate } from "../../types";
 
 export default class Bullet extends GameObject{
-    constructor(player){
+    player: Person
+    flyRange: number
+    startCoord: coordinate
+    flightDelta: number
+    speed: number
+    direction: coordinate
+    position: coordinate
+    constructor(player: Person){
         super()
 
         this.id = Date.now() * Math.floor(Math.random() * 100);
@@ -21,10 +30,10 @@ export default class Bullet extends GameObject{
 
         this.speed = 10;
 
-        this.direction = {}
+        this.direction = {top: 0, left: 0}
         this.setDirection();
 
-        this.position = {}
+        this.position = {top: 0, left: 0}
         this.setPosition()
     }
 
@@ -88,31 +97,35 @@ export default class Bullet extends GameObject{
 
     draw(){
         let {screen} = this.player.game;
-        screen.fillStyle = 'black';
-        screen.fillRect(this.position.left, this.position.top, this.width, this.height)
+        if(screen != null){
+            screen.fillStyle = 'black';
+            screen.fillRect(this.position.left, this.position.top, this.width, this.height)
+        }
     }
 
     move(){
-        let newTopCoord = this.getCoords().top + this.direction.top;
-        let newLeftCoord = this.getCoords().left + this.direction.left;
-        let newBottomCoord = this.getCoords().bottom + this.direction.top;
-        let newRightCoord = this.getCoords().right + this.direction.left;
-
-        if(this.measureFlightDelta() >= this.flyRange) this.destroy()
-
-        // bullet collision with screen boundaries
-        if(newTopCoord > 0 && newBottomCoord < this.player.game.canvasElement.height){
-            this.position.top = newTopCoord;
+        if(this.player.game.canvasElement != null){
+            let newTopCoord = this.getCoords().top + this.direction.top;
+            let newLeftCoord = this.getCoords().left + this.direction.left;
+            let newBottomCoord = this.getCoords().bottom + this.direction.top;
+            let newRightCoord = this.getCoords().right + this.direction.left;
+    
+            if(this.measureFlightDelta() >= this.flyRange) this.destroy()
+    
+            // bullet collision with screen boundaries
+            if(newTopCoord > 0 && newBottomCoord < this.player.game.canvasElement.height){
+                this.position.top = newTopCoord;
+            }
+            if(newLeftCoord > 0 && newRightCoord < this.player.game.canvasElement.width){
+                this.position.left = newLeftCoord;
+            }
+    
+            this.draw()
         }
-        if(newLeftCoord > 0 && newRightCoord < this.player.game.canvasElement.width){
-            this.position.left = newLeftCoord;
-        }
-
-        this.draw()
     }
 
     destroy(){
-        let thisIndex = this.player.game.objects.findIndex(el=>el.id===this.id)
+        let thisIndex = this.player.game.objects.findIndex((el:GameObject)=>el.id===this.id)
         this.player.game.objects.splice(thisIndex, 1)
     }
 }
