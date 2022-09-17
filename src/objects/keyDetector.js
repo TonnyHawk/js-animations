@@ -56,6 +56,12 @@ export default class keyDetector {
                     player.shoot()
                     break;
             }
+
+            // separated insruction for space to prevent blocking shoot functionality while moving the person
+            if(key === 'Escape'){
+                if (game.isAnimationRunning) game.pause();
+                else game.resume();
+            }
         })
 
         document.addEventListener('keyup', (e)=>{
