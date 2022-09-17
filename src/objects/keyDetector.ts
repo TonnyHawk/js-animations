@@ -1,13 +1,16 @@
-export default class keyDetector {
-    constructor(game, player) {
+import Player from "./basic/Player";
+import Game from "./Game";
 
-        function getPressedKeyName(e){
+export default class keyDetector {
+    constructor(game:Game, player:Player) {
+
+        function getPressedKeyName(e: KeyboardEvent){
             let keyName = e.key;
             if (keyName === ' ') keyName = 'Space';
             return keyName
         }
 
-        function keyUpHandler(e) {
+        function keyUpHandler(e: KeyboardEvent) {
             let key = getPressedKeyName(e);
             switch (key) {
                 case 'ArrowLeft':
@@ -25,7 +28,7 @@ export default class keyDetector {
             }
         }
 
-        let keyUpHandlerDelay;
+        let keyUpHandlerDelay: ReturnType<typeof window.setTimeout>;
 
         document.addEventListener('keydown', (e) => {
             let key = getPressedKeyName(e);
