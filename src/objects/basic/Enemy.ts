@@ -85,7 +85,7 @@ export default class Enemy extends Person{
         }
     }
 
-    followTheTarget(callback: Function){
+    attack(callback: Function){
         let targetTop = this.target.obj.position.top
         let targetLeft = this.target.obj.position.left
         let selfTop = this.position.top
@@ -160,16 +160,9 @@ export default class Enemy extends Person{
         if(this.target.isLeftAligned && this.target.isTopAligned) callback()
     }
 
-    faceToTarget(selfLeft: number, selfTop: number, targetLeft: number, targetTop: number){
-        if(selfLeft > targetLeft) this.turn('left')
-        else if(selfLeft < targetLeft) this.turn('right')
-        if(selfTop > targetTop) this.turn('up')
-        else if(selfTop < targetTop) this.turn('down')
-    }
-
     move(){
         if(this.game.canvasElement){
-            this.followTheTarget(this.fight)
+            this.attac(this.fight)
 
             let newTopCoord = this.getCoords().top + this.direction.top;
             let newLeftCoord = this.getCoords().left + this.direction.left;
