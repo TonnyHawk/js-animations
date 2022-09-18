@@ -29,7 +29,7 @@ export default class Game{
     start(){
         this.player = new Player(this);
         this.objects.push(this.player);
-        this.objects.push(new Enemy(this, this.player))
+        this.objects.push(new Enemy(this))
         new KeyDetector(this, this.player)
         this.draw()
     }

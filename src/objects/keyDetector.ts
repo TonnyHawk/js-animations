@@ -1,3 +1,4 @@
+import Enemy from "./basic/Enemy";
 import Player from "./basic/Player";
 import Game from "./Game";
 
@@ -33,6 +34,9 @@ export default class keyDetector {
         document.addEventListener('keydown', (e) => {
             let key = getPressedKeyName(e);
 
+            console.log(key);
+            
+            let enemy;
             // console.log(key);
             switch (key) {
                 case 'ArrowLeft':
@@ -58,12 +62,21 @@ export default class keyDetector {
                 case 'Space':
                     player.shoot()
                     break;
+                case 'p':
+                    enemy = game.objects.find(el=>el.type === 'enemy') as Enemy
+                    enemy.setTarget(player)
+                    console.log('target selected');
+                    break;
+                case 'o':
+                    enemy = game.objects.find(el=>el.type === 'enemy') as Enemy
+                    enemy.resetTarget()
+                    console.log('target reseted');
+                    break;
             }
 
             // separated insruction for space to prevent blocking shoot functionality while moving the person
-            if(key === 'Escape'){
-                if (game.isAnimationRunning) game.pause();
-                else game.resume();
+            if(key === 'Space'){
+                player.shoot()
             }
         })
 
