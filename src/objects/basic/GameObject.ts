@@ -10,7 +10,11 @@ export default class GameObject{
     markedForDeletion: boolean
     isDamagable: boolean
     game: Game
-    hp: number
+    hp: {
+        full: number
+        available: number
+    }
+    type: 'enemy' | 'player' | 'neutral'
     constructor(game: Game){
         this.id = Date.now() * Math.floor(Math.random() * 100);
         this.moveVectorName = 'up';
@@ -22,7 +26,12 @@ export default class GameObject{
         this.width = 10;
         this.markedForDeletion = false
         this.game = game
-        this.hp = 100;
+        this.hp = {
+            full: 100,
+            available: 100
+        };
+        this.isDamagable = false;
+        this.type = 'neutral'
     }
     getDirectionName(){
         return this.moveVectorName
@@ -36,10 +45,10 @@ export default class GameObject{
         }
     }
     getDamaged(damage:number){
-        this.hp -= damage
+        this.hp.available -= damage
         console.log('hp: '+this.hp);
         
-        if(this.hp <= 0) this.die()
+        if(this.hp.available <= 0) this.die()
     }
 
     die(){
