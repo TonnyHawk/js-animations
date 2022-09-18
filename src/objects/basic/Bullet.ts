@@ -39,7 +39,7 @@ export default class Bullet extends GameObject{
         this.position = {top: 0, left: 0}
         this.setPosition()
 
-        this.damage = 20;
+        this.damage = 50;
     }
 
     setDirection(){
