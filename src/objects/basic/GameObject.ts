@@ -46,7 +46,7 @@ export default class GameObject{
     }
     getDamaged(damage:number){
         this.hp.available -= damage
-        console.log('hp: '+this.hp);
+        console.log('hp: '+this.hp.available);
         
         if(this.hp.available <= 0) this.die()
     }
