@@ -1,6 +1,7 @@
 import GameObject from "./GameObject";
 import Person from "./Person";
 import { coordinate } from "../../types";
+import { checkColision } from "../../utils";
 
 export default class Bullet extends GameObject{
     player: Person
@@ -115,13 +116,19 @@ export default class Bullet extends GameObject{
             // bullet collision with screen boundaries
             if(newTopCoord > 0 && newBottomCoord < this.player.game.canvasElement.height){
                 this.position.top = newTopCoord;
-            }
+            }else this.destroy()
             if(newLeftCoord > 0 && newRightCoord < this.player.game.canvasElement.width){
                 this.position.left = newLeftCoord;
-            }
+            }else this.destroy()
     
             this.draw()
         }
+
+        if(checkColision(this, this.player.game.player)) {
+            console.log('player is hitted');
+            this.destroy()
+        }
+        
     }
 
     destroy(){
