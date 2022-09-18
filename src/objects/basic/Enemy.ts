@@ -6,12 +6,16 @@ import GameObject from "./GameObject";
 
 export default class Enemy extends Person{
     game: Game
-    target: GameObject
     gun: Gun
     temporarySpeed: number
     isTopAligned: boolean
     isLeftAligned: boolean
-    constructor(game:Game){
+    target: {
+        obj: GameObject
+        isLeftAligned: boolean
+        isTopAligned: boolean
+    }
+    constructor(game:Game, target: GameObject){
         super(game)
         this.game = game
 
@@ -29,10 +33,12 @@ export default class Enemy extends Person{
             left: 0
         }
 
-        this.target = game.player
-        // alignment to targer
-        this.isTopAligned = false;
-        this.isLeftAligned = false;
+        this.target = {
+            obj: target,
+            // self alignment to targer
+            isTopAligned: false,
+            isLeftAligned: false
+        }
 
         this.moveVectorName = 'up';
 
@@ -79,8 +85,8 @@ export default class Enemy extends Person{
     }
 
     followTheTarget(callback: Function){
-        let targetTop = this.target.position.top
-        let targetLeft = this.target.position.left
+        let targetTop = this.target.obj.position.top
+        let targetLeft = this.target.obj.position.left
         let selfTop = this.position.top
         let selfLeft = this.position.left
 
@@ -89,15 +95,15 @@ export default class Enemy extends Person{
 
         let range = this.gun.shotRange
 
-        if(deltaTop > 0) this.isTopAligned = false
-        if(deltaLeft > 0) this.isLeftAligned = false
+        if(deltaTop > 0) this.target.isTopAligned = false
+        if(deltaLeft > 0) this.target.isLeftAligned = false
 
         let alignTopOnRange = ()=>{
             if(deltaTop > range){
                 if(selfTop > targetTop) this.setDirection('up')
                 else if(selfTop < targetTop) this.setDirection('down')
             }else{
-                this.isTopAligned = true;
+                this.target.isTopAligned = true;
                 this.direction.top = 0;
                 this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop)
             }
@@ -108,7 +114,7 @@ export default class Enemy extends Person{
                 if(selfLeft > targetLeft) this.setDirection('left')
                 else if(selfLeft < targetLeft) this.setDirection('right')
             }else{
-                this.isLeftAligned = true;
+                this.target.isLeftAligned = true;
                 this.direction.left = 0;
                 this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop)
             }
@@ -121,7 +127,7 @@ export default class Enemy extends Person{
                 if(selfTop > targetTop) this.setDirection('up', speed)
                 else if(selfTop < targetTop) this.setDirection('down', speed)
             }else{
-                this.isTopAligned = true;
+                this.target.isTopAligned = true;
                 this.direction.top = 0;
                 this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop)
             }
@@ -134,23 +140,23 @@ export default class Enemy extends Person{
                 if(selfLeft > targetLeft) this.setDirection('left', speed)
                 else if(selfLeft < targetLeft) this.setDirection('right', speed)
             }else{
-                this.isLeftAligned = true;
+                this.target.isLeftAligned = true;
                 this.direction.left = 0;
                 this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop)
             }
         }
         
         if(deltaTop <= deltaLeft){
-            if(!this.isTopAligned) alignTopPerfect()
+            if(!this.target.isTopAligned) alignTopPerfect()
             else alignLeftOnRange()
         }
 
         if(deltaLeft < deltaTop){
-            if(!this.isLeftAligned) alignLeftPerfect()
+            if(!this.target.isLeftAligned) alignLeftPerfect()
             else alignTopOnRange()
         }
 
-        if(this.isLeftAligned && this.isTopAligned) callback()
+        if(this.target.isLeftAligned && this.target.isTopAligned) callback()
     }
 
     faceToTarget(selfLeft: number, selfTop: number, targetLeft: number, targetTop: number){
