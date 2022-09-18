@@ -15,6 +15,8 @@ export function getTimestamp (): number {
 
 export function checkColision(firstObj: GameObject, secondObj: GameObject): boolean{
     if(firstObj.getCoords().right >= secondObj.getCoords().left &&
-    firstObj.getCoords().left <= secondObj.getCoords().right)return true
+    firstObj.getCoords().left <= secondObj.getCoords().right &&
+    firstObj.getCoords().top <= secondObj.getCoords().bottom &&
+    firstObj.getCoords().bottom >= secondObj.getCoords().top)return true
     else return false
 }
