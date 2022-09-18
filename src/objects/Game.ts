@@ -35,12 +35,19 @@ export default class Game{
     }
 
     draw(){
+        this.deleteMarkedObjects()
         if(this.screen !== null && this.canvasElement !== null){
             this.screen.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height)
             this.objects.forEach((gameObject:GameObject)=>gameObject.move())
             this.animation = requestAnimationFrame(this.draw)
             this.isAnimationRunning = true;
         }
+    }
+
+    deleteMarkedObjects(){
+        let cleanedList: GameObject[] = []
+        this.objects.forEach(el => {if(!el.markedForDeletion) cleanedList.push(el)})
+        this.objects = cleanedList
     }
 
     resume(){

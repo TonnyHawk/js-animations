@@ -6,6 +6,7 @@ export default class GameObject{
     position: coordinate
     height: number
     width: number
+    markedForDeletion: boolean
     constructor(){
         this.id = Date.now() * Math.floor(Math.random() * 100);
         this.moveVectorName = 'up';
@@ -15,6 +16,7 @@ export default class GameObject{
         }
         this.height = 10;
         this.width = 10;
+        this.markedForDeletion = false
     }
     getDirectionName(){
         return this.moveVectorName

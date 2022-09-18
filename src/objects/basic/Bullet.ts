@@ -125,7 +125,6 @@ export default class Bullet extends GameObject{
     }
 
     destroy(){
-        let thisIndex = this.player.game.objects.findIndex((el:GameObject)=>el.id===this.id)
-        this.player.game.objects.splice(thisIndex, 1)
+        this.markedForDeletion = true;
     }
 }
