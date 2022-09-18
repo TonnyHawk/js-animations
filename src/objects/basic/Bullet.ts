@@ -67,18 +67,18 @@ export default class Bullet extends GameObject{
         switch(this.player.getDirectionName()){
             case 'left':
                 this.position.top = this.player.getCoords().top + this.player.width / 2 - this.width / 2 + 0.8
-                this.position.left = this.player.getCoords().left
+                this.position.left = this.player.getCoords().left - this.width
                 break;
             case 'right':
                 this.position.top = this.player.getCoords().top + this.player.width / 2 - this.width / 2 + 0.8
-                this.position.left = this.player.getCoords().right
+                this.position.left = this.player.getCoords().right + this.width
                 break;
             case 'up':
-                this.position.top = this.player.getCoords().top
+                this.position.top = this.player.getCoords().top - this.height
                 this.position.left = this.player.getCoords().left + this.player.width / 2 - this.width / 2 + 0.8
                 break;
             case 'down':
-                this.position.top = this.player.getCoords().bottom
+                this.position.top = this.player.getCoords().bottom + this.height
                 this.position.left = this.player.getCoords().left + this.player.width / 2 - this.width / 2 + 0.8
                 break;
         }
