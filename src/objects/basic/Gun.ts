@@ -1,4 +1,5 @@
 import { getTimestamp } from "../../utils";
+import Game from "../Game";
 import Bullet from "./Bullet";
 
 export default class Gun{
@@ -13,8 +14,9 @@ export default class Gun{
     }
     owner: any
     lastShotTime: number
+    game: Game
 
-    constructor(owner: any){
+    constructor(game:Game, owner: any){
         this.clipSize = 3;
         this.bulletsInClip = 3;
         this.shotRange = 200;
@@ -25,6 +27,7 @@ export default class Gun{
         }
         this.owner = owner;
         this.lastShotTime = getTimestamp();
+        this.game = game
     }
     reload(){
         this.isReloading = true
@@ -40,7 +43,7 @@ export default class Gun{
         if(this.bulletsInClip > 0){
             let now = getTimestamp()
             if((now - this.lastShotTime) > this.remainingTime.min){
-                this.owner.game.objects.push(new Bullet(this.owner))
+                this.owner.game.objects.push(new Bullet(this.game, this.owner))
                 this.bulletsInClip -= 1;
                 this.lastShotTime = now
             }

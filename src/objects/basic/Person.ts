@@ -13,13 +13,14 @@ export default class Person extends GameObject{
     gun?: object
     game: Game
     constructor(game: Game){
-        super()
+        super(game)
         this.speed = 6
         this.direction = {
             top: 0,
             left: 0
         }
-        this.game = game
+
+        this.isDamagable = true
     }
 
     turn(vector: moveVector){

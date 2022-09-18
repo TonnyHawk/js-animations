@@ -17,7 +17,6 @@ export default class Enemy extends Person{
     }
     constructor(game:Game, target: GameObject){
         super(game)
-        this.game = game
 
         this.height = 50;
         this.width = 50;
@@ -44,7 +43,9 @@ export default class Enemy extends Person{
 
         this.fight = this.fight.bind(this)
 
-        this.gun = new Gun(this);
+        this.gun = new Gun(game, this);
+
+        this.isDamagable = true
 
         this.draw()
     }

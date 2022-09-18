@@ -25,7 +25,7 @@ export default class Player extends Person {
             left: 0
         }
 
-        this.gun = new Gun(this)
+        this.gun = new Gun(game, this)
 
         this.moveVectorName = 'up';
 
