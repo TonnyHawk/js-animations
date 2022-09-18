@@ -2,6 +2,7 @@ import GameObject from "./GameObject";
 import Person from "./Person";
 import { coordinate } from "../../types";
 import { checkColision } from "../../utils";
+import Game from "../Game";
 
 export default class Bullet extends GameObject{
     player: Person
@@ -11,8 +12,9 @@ export default class Bullet extends GameObject{
     speed: number
     direction: coordinate
     position: coordinate
-    constructor(player: Person){
-        super()
+    damage: number
+    constructor(game:Game, player: Person){
+        super(game)
 
         this.id = Date.now() * Math.floor(Math.random() * 100);
         this.player = player
@@ -36,6 +38,8 @@ export default class Bullet extends GameObject{
 
         this.position = {top: 0, left: 0}
         this.setPosition()
+
+        this.damage = 20;
     }
 
     setDirection(){
@@ -111,27 +115,29 @@ export default class Bullet extends GameObject{
             let newBottomCoord = this.getCoords().bottom + this.direction.top;
             let newRightCoord = this.getCoords().right + this.direction.left;
     
-            if(this.measureFlightDelta() >= this.flyRange) this.destroy()
+            if(this.measureFlightDelta() >= this.flyRange) this.die()
     
             // bullet collision with screen boundaries
             if(newTopCoord > 0 && newBottomCoord < this.player.game.canvasElement.height){
                 this.position.top = newTopCoord;
-            }else this.destroy()
+            }else this.die()
             if(newLeftCoord > 0 && newRightCoord < this.player.game.canvasElement.width){
                 this.position.left = newLeftCoord;
-            }else this.destroy()
+            }else this.die()
     
             this.draw()
         }
 
-        if(checkColision(this, this.player.game.player)) {
-            console.log('player is hitted');
-            this.destroy()
-        }
-        
-    }
 
-    destroy(){
-        this.markedForDeletion = true;
+        this.game.objects.forEach(obj=>{
+            if(obj.isDamagable){
+                if(checkColision(this, obj)) {
+                    console.log('Some object is being hit by bullet');
+                    this.die()
+                    obj.getDamaged(this.damage)
+                }
+            }
+        })
+        
     }
 }
