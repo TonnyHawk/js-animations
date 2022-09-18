@@ -34,8 +34,6 @@ export default class keyDetector {
         document.addEventListener('keydown', (e) => {
             let key = getPressedKeyName(e);
 
-            console.log(key);
-            
             let enemy;
             // console.log(key);
             switch (key) {
