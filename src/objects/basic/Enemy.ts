@@ -9,12 +9,11 @@ export default class Enemy extends Person{
     target: GameObject
     gun: Gun
     temporarySpeed: number
-
+    isTopAligned: boolean
+    isLeftAligned: boolean
     constructor(game:Game){
         super(game)
         this.game = game
-
-        this.target = game.player
 
         this.height = 50;
         this.width = 50;
@@ -23,12 +22,17 @@ export default class Enemy extends Person{
             left: 0
         }
 
-        this.speed = 3;
+        this.speed = 1;
         this.temporarySpeed = this.speed;
         this.direction = {
             top: 0,
             left: 0
         }
+
+        this.target = game.player
+        // alignment to targer
+        this.isTopAligned = false;
+        this.isLeftAligned = false;
 
         this.moveVectorName = 'up';
 
@@ -84,30 +88,76 @@ export default class Enemy extends Person{
         let deltaLeft = getModulus(targetLeft - selfLeft)
 
         let range = this.gun.shotRange
-        if(deltaTop !== 0 && deltaLeft !== 0){
-            range = 0
+
+        if(deltaTop > 0) this.isTopAligned = false
+        if(deltaLeft > 0) this.isLeftAligned = false
+
+        let alignTopOnRange = ()=>{
+            if(deltaTop > range){
+                if(selfTop > targetTop) this.setDirection('up')
+                else if(selfTop < targetTop) this.setDirection('down')
+            }else{
+                this.isTopAligned = true;
+                this.direction.top = 0;
+                this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop)
+            }
         }
 
-        if(deltaTop >= range){
-            let speed = this.speed;
-            if(deltaTop < this.speed) speed = deltaTop
-            if(selfTop > targetTop) this.setDirection('up', speed)
-            else if(selfTop < targetTop) this.setDirection('down', speed)
-        }else if(deltaLeft >= range){
-            let speed = this.speed;
-            if(deltaLeft < this.speed) speed = deltaLeft
-            if(selfLeft > targetLeft) this.setDirection('left', speed)
-            else if(selfLeft < targetLeft) this.setDirection('right', speed)
-        }else{
-            this.stop()
-            if(selfLeft > targetLeft) this.turn('left')
-            else if(selfLeft < targetLeft) this.turn('right')
-            if(selfTop > targetTop) this.turn('up')
-            else if(selfTop < targetTop) this.turn('down')
-
-            callback()
+        let alignLeftOnRange = ()=>{
+            if(deltaLeft > range){
+                if(selfLeft > targetLeft) this.setDirection('left')
+                else if(selfLeft < targetLeft) this.setDirection('right')
+            }else{
+                this.isLeftAligned = true;
+                this.direction.left = 0;
+                this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop)
+            }
         }
 
+        let alignTopPerfect = ()=>{
+            if(deltaTop > 0){
+                let speed = this.speed;
+                if(deltaTop < this.speed) speed = deltaTop
+                if(selfTop > targetTop) this.setDirection('up', speed)
+                else if(selfTop < targetTop) this.setDirection('down', speed)
+            }else{
+                this.isTopAligned = true;
+                this.direction.top = 0;
+                this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop)
+            }
+        }
+
+        let alignLeftPerfect = ()=>{
+            if(deltaLeft > 0){
+                let speed = this.speed;
+                if(deltaLeft < this.speed) speed = deltaLeft
+                if(selfLeft > targetLeft) this.setDirection('left', speed)
+                else if(selfLeft < targetLeft) this.setDirection('right', speed)
+            }else{
+                this.isLeftAligned = true;
+                this.direction.left = 0;
+                this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop)
+            }
+        }
+        
+        if(deltaTop <= deltaLeft){
+            if(!this.isTopAligned) alignTopPerfect()
+            else alignLeftOnRange()
+        }
+
+        if(deltaLeft < deltaTop){
+            if(!this.isLeftAligned) alignLeftPerfect()
+            else alignTopOnRange()
+        }
+
+        if(this.isLeftAligned && this.isTopAligned) callback()
+    }
+
+    faceToTarget(selfLeft: number, selfTop: number, targetLeft: number, targetTop: number){
+        if(selfLeft > targetLeft) this.turn('left')
+        else if(selfLeft < targetLeft) this.turn('right')
+        if(selfTop > targetTop) this.turn('up')
+        else if(selfTop < targetTop) this.turn('down')
     }
 
     move(){
