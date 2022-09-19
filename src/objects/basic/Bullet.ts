@@ -66,37 +66,20 @@ export default class Bullet extends GameObject {
 	setPosition() {
 		switch (this.player.getDirectionName()) {
 			case "left":
-				this.position.top =
-					this.player.getCoords().top +
-					this.player.width / 2 -
-					this.width / 2 +
-					0.8;
+				this.position.top = this.player.getCoords().top + this.player.width / 2 - this.width / 2 + 0.8;
 				this.position.left = this.player.getCoords().left - this.width;
 				break;
 			case "right":
-				this.position.top =
-					this.player.getCoords().top +
-					this.player.width / 2 -
-					this.width / 2 +
-					0.8;
+				this.position.top = this.player.getCoords().top + this.player.width / 2 - this.width / 2 + 0.8;
 				this.position.left = this.player.getCoords().right + this.width;
 				break;
 			case "up":
 				this.position.top = this.player.getCoords().top - this.height;
-				this.position.left =
-					this.player.getCoords().left +
-					this.player.width / 2 -
-					this.width / 2 +
-					0.8;
+				this.position.left = this.player.getCoords().left + this.player.width / 2 - this.width / 2 + 0.8;
 				break;
 			case "down":
-				this.position.top =
-					this.player.getCoords().bottom + this.height;
-				this.position.left =
-					this.player.getCoords().left +
-					this.player.width / 2 -
-					this.width / 2 +
-					0.8;
+				this.position.top = this.player.getCoords().bottom + this.height;
+				this.position.left = this.player.getCoords().left + this.player.width / 2 - this.width / 2 + 0.8;
 				break;
 		}
 
@@ -121,12 +104,7 @@ export default class Bullet extends GameObject {
 		let { screen } = this.player.game;
 		if (screen != null) {
 			screen.fillStyle = "black";
-			screen.fillRect(
-				this.position.left,
-				this.position.top,
-				this.width,
-				this.height
-			);
+			screen.fillRect(this.position.left, this.position.top, this.width, this.height);
 		}
 	}
 
@@ -140,16 +118,10 @@ export default class Bullet extends GameObject {
 			if (this.measureFlightDelta() >= this.flyRange) this.die();
 
 			// bullet collision with screen boundaries
-			if (
-				newTopCoord > 0 &&
-				newBottomCoord < this.player.game.canvasElement.height
-			) {
+			if (newTopCoord > 0 && newBottomCoord < this.player.game.canvasElement.height) {
 				this.position.top = newTopCoord;
 			} else this.die();
-			if (
-				newLeftCoord > 0 &&
-				newRightCoord < this.player.game.canvasElement.width
-			) {
+			if (newLeftCoord > 0 && newRightCoord < this.player.game.canvasElement.width) {
 				this.position.left = newLeftCoord;
 			} else this.die();
 

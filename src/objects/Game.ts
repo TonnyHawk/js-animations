@@ -16,12 +16,8 @@ export default class Game {
 		this.animation = null;
 		this.isAnimationRunning = false;
 
-		this.canvasElement = document.getElementById(
-			"screen"
-		) as HTMLCanvasElement;
-		this.screen = this.canvasElement.getContext(
-			"2d"
-		) as CanvasRenderingContext2D;
+		this.canvasElement = document.getElementById("screen") as HTMLCanvasElement;
+		this.screen = this.canvasElement.getContext("2d") as CanvasRenderingContext2D;
 
 		this.draw = this.draw.bind(this);
 		this.resume = this.resume.bind(this);
@@ -41,12 +37,7 @@ export default class Game {
 	draw() {
 		this.deleteMarkedObjects();
 		if (this.screen !== null && this.canvasElement !== null) {
-			this.screen.clearRect(
-				0,
-				0,
-				this.canvasElement.width,
-				this.canvasElement.height
-			);
+			this.screen.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
 			this.objects.forEach((gameObject: GameObject) => gameObject.move());
 			this.animation = requestAnimationFrame(this.draw);
 			this.isAnimationRunning = true;

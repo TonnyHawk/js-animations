@@ -53,34 +53,18 @@ export default class Enemy extends Person {
 	draw() {
 		if (this.game.screen !== null) {
 			this.game.screen.fillStyle = "blue";
-			this.game.screen.fillRect(
-				this.position.left,
-				this.position.top,
-				this.width,
-				this.height
-			);
+			this.game.screen.fillRect(this.position.left, this.position.top, this.width, this.height);
 
-			let arrowImage = document.getElementById(
-				"player-direction-arrow"
-			) as HTMLImageElement;
+			let arrowImage = document.getElementById("player-direction-arrow") as HTMLImageElement;
 			let shrinkRatio = this.height / arrowImage.height;
 
 			let rotateObject = (angle: number) => {
 				if (this.game.screen !== null) {
 					this.game.screen.save();
-					this.game.screen.translate(
-						this.position.left + this.width / 2,
-						this.position.top + this.height / 2
-					);
+					this.game.screen.translate(this.position.left + this.width / 2, this.position.top + this.height / 2);
 					this.game.screen.rotate((angle * Math.PI) / 180);
 					this.game.screen.fillStyle = "blue";
-					this.game.screen.drawImage(
-						arrowImage,
-						(-1 * this.width) / 2 + 8.5,
-						(-1 * this.height) / 2,
-						this.width * shrinkRatio,
-						this.height
-					);
+					this.game.screen.drawImage(arrowImage, (-1 * this.width) / 2 + 8.5, (-1 * this.height) / 2, this.width * shrinkRatio, this.height);
 					this.game.screen.restore();
 				}
 			};
@@ -136,12 +120,7 @@ export default class Enemy extends Person {
 					} else {
 						this.target.isTopAligned = true;
 						this.direction.top = 0;
-						this.faceToTarget(
-							selfLeft,
-							selfTop,
-							targetLeft,
-							targetTop
-						);
+						this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop);
 					}
 				}
 			};
@@ -150,17 +129,11 @@ export default class Enemy extends Person {
 				if (this.target) {
 					if (deltaLeft > range) {
 						if (selfLeft > targetLeft) this.setDirection("left");
-						else if (selfLeft < targetLeft)
-							this.setDirection("right");
+						else if (selfLeft < targetLeft) this.setDirection("right");
 					} else {
 						this.target.isLeftAligned = true;
 						this.direction.left = 0;
-						this.faceToTarget(
-							selfLeft,
-							selfTop,
-							targetLeft,
-							targetTop
-						);
+						this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop);
 					}
 				}
 			};
@@ -171,17 +144,11 @@ export default class Enemy extends Person {
 						let speed = this.speed;
 						if (deltaTop < this.speed) speed = deltaTop;
 						if (selfTop > targetTop) this.setDirection("up", speed);
-						else if (selfTop < targetTop)
-							this.setDirection("down", speed);
+						else if (selfTop < targetTop) this.setDirection("down", speed);
 					} else {
 						this.target.isTopAligned = true;
 						this.direction.top = 0;
-						this.faceToTarget(
-							selfLeft,
-							selfTop,
-							targetLeft,
-							targetTop
-						);
+						this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop);
 					}
 				}
 			};
@@ -191,19 +158,12 @@ export default class Enemy extends Person {
 					if (deltaLeft > 0) {
 						let speed = this.speed;
 						if (deltaLeft < this.speed) speed = deltaLeft;
-						if (selfLeft > targetLeft)
-							this.setDirection("left", speed);
-						else if (selfLeft < targetLeft)
-							this.setDirection("right", speed);
+						if (selfLeft > targetLeft) this.setDirection("left", speed);
+						else if (selfLeft < targetLeft) this.setDirection("right", speed);
 					} else {
 						this.target.isLeftAligned = true;
 						this.direction.left = 0;
-						this.faceToTarget(
-							selfLeft,
-							selfTop,
-							targetLeft,
-							targetTop
-						);
+						this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop);
 					}
 				}
 			};
@@ -218,8 +178,7 @@ export default class Enemy extends Person {
 				else alignTopOnRange();
 			}
 
-			if (this.target.isLeftAligned && this.target.isTopAligned)
-				callback();
+			if (this.target.isLeftAligned && this.target.isTopAligned) callback();
 		} else {
 			this.stop();
 		}
@@ -234,16 +193,10 @@ export default class Enemy extends Person {
 			let newBottomCoord = this.getCoords().bottom + this.direction.top;
 			let newRightCoord = this.getCoords().right + this.direction.left;
 
-			if (
-				newTopCoord > 0 &&
-				newBottomCoord < this.game.canvasElement.height
-			) {
+			if (newTopCoord > 0 && newBottomCoord < this.game.canvasElement.height) {
 				this.position.top = newTopCoord;
 			}
-			if (
-				newLeftCoord >= 0 &&
-				newRightCoord < this.game.canvasElement.width
-			) {
+			if (newLeftCoord >= 0 && newRightCoord < this.game.canvasElement.width) {
 				this.position.left = newLeftCoord;
 			}
 

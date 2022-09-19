@@ -35,34 +35,18 @@ export default class Player extends Person {
 	draw() {
 		if (this.game.screen !== null) {
 			this.game.screen.fillStyle = "red";
-			this.game.screen.fillRect(
-				this.position.left,
-				this.position.top,
-				this.width,
-				this.height
-			);
+			this.game.screen.fillRect(this.position.left, this.position.top, this.width, this.height);
 
-			const arrowImage = document.getElementById(
-				"player-direction-arrow"
-			) as HTMLImageElement;
+			const arrowImage = document.getElementById("player-direction-arrow") as HTMLImageElement;
 			const shrinkRatio = this.height / arrowImage.height;
 
 			const rotateObject = (angle: number) => {
 				if (this.game.screen !== null) {
 					this.game.screen.save();
-					this.game.screen.translate(
-						this.position.left + this.width / 2,
-						this.position.top + this.height / 2
-					);
+					this.game.screen.translate(this.position.left + this.width / 2, this.position.top + this.height / 2);
 					this.game.screen.rotate((angle * Math.PI) / 180);
 					this.game.screen.fillStyle = "blue";
-					this.game.screen.drawImage(
-						arrowImage,
-						(-1 * this.width) / 2 + 8.5,
-						(-1 * this.height) / 2,
-						this.width * shrinkRatio,
-						this.height
-					);
+					this.game.screen.drawImage(arrowImage, (-1 * this.width) / 2 + 8.5, (-1 * this.height) / 2, this.width * shrinkRatio, this.height);
 					this.game.screen.restore();
 				}
 			};
@@ -91,16 +75,10 @@ export default class Player extends Person {
 			const newBottomCoord = this.getCoords().bottom + this.direction.top;
 			const newRightCoord = this.getCoords().right + this.direction.left;
 
-			if (
-				newTopCoord > 0 &&
-				newBottomCoord < this.game.canvasElement.height
-			) {
+			if (newTopCoord > 0 && newBottomCoord < this.game.canvasElement.height) {
 				this.position.top = newTopCoord;
 			}
-			if (
-				newLeftCoord >= 0 &&
-				newRightCoord < this.game.canvasElement.width
-			) {
+			if (newLeftCoord >= 0 && newRightCoord < this.game.canvasElement.width) {
 				this.position.left = newLeftCoord;
 			}
 

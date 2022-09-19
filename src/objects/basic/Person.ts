@@ -56,12 +56,7 @@ export default class Person extends GameObject {
 		this.direction.top = 0;
 	}
 
-	faceToTarget(
-		selfLeft: number,
-		selfTop: number,
-		targetLeft: number,
-		targetTop: number
-	) {
+	faceToTarget(selfLeft: number, selfTop: number, targetLeft: number, targetTop: number) {
 		if (selfLeft > targetLeft) this.turn("left");
 		else if (selfLeft < targetLeft) this.turn("right");
 		if (selfTop > targetTop) this.turn("up");

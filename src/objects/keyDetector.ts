@@ -60,16 +60,12 @@ export default class keyDetector {
 					player.shoot();
 					break;
 				case "p":
-					enemy = game.objects.find(
-						(el) => el.type === "enemy"
-					) as Enemy;
+					enemy = game.objects.find((el) => el.type === "enemy") as Enemy;
 					enemy.setTarget(player);
 					console.log("target selected");
 					break;
 				case "o":
-					enemy = game.objects.find(
-						(el) => el.type === "enemy"
-					) as Enemy;
+					enemy = game.objects.find((el) => el.type === "enemy") as Enemy;
 					enemy.resetTarget();
 					console.log("target reseted");
 					break;

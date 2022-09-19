@@ -13,10 +13,7 @@ export function getTimestamp(): number {
 	return Math.floor(Date.now());
 }
 
-export function checkColision(
-	firstObj: GameObject,
-	secondObj: GameObject
-): boolean {
+export function checkColision(firstObj: GameObject, secondObj: GameObject): boolean {
 	if (
 		firstObj.getCoords().right >= secondObj.getCoords().left &&
 		firstObj.getCoords().left <= secondObj.getCoords().right &&

@@ -1,8 +1,6 @@
 export default class PopupScreen {
 	constructor(game) {
-		document
-			.getElementById("resume-btn")
-			.addEventListener("click", game.resume);
+		document.getElementById("resume-btn").addEventListener("click", game.resume);
 		this.titleElement = document.getElementById("popup-screen-title");
 	}
 
