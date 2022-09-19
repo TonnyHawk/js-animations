@@ -1,5 +1,5 @@
-import './styles/main.scss';
-import Game from './objects/Game';
+import "./styles/main.scss";
+import Game from "./objects/Game";
 
 const game = new Game();
-game.start()
+game.start();
