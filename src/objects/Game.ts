@@ -11,12 +11,15 @@ export default class Game {
 	screen: CanvasRenderingContext2D | null;
 	objects: GameObject[];
 	popupScreen: any;
-	player: any;
+	player: Player;
 	constructor() {
 		this.animation = null;
 		this.isAnimationRunning = false;
 
 		this.canvasElement = document.getElementById("screen") as HTMLCanvasElement;
+
+		this.canvasElement.width = window.innerWidth - 10;
+		this.canvasElement.height = window.innerHeight - 10;
 		this.screen = this.canvasElement.getContext("2d") as CanvasRenderingContext2D;
 
 		this.draw = this.draw.bind(this);
@@ -24,10 +27,11 @@ export default class Game {
 		this.popupScreen = new PopupScreen(this);
 
 		this.objects = [];
+
+		this.player = new Player(this);
 	}
 
 	start() {
-		this.player = new Player(this);
 		this.objects.push(this.player);
 		this.objects.push(new Enemy(this));
 		new KeyDetector(this, this.player);
@@ -45,7 +49,7 @@ export default class Game {
 	}
 
 	deleteMarkedObjects() {
-		let cleanedList: GameObject[] = [];
+		const cleanedList: GameObject[] = [];
 		this.objects.forEach((el) => {
 			if (!el.markedForDeletion) cleanedList.push(el);
 		});
