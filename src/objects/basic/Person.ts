@@ -10,7 +10,6 @@ interface coordinate {
 export default class Person extends GameObject {
 	speed: number;
 	direction: coordinate;
-	gun?: object;
 	constructor(game: Game) {
 		super(game);
 		this.speed = 6;
