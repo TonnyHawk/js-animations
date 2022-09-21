@@ -3,6 +3,8 @@ import Player from "./basic/Player";
 import PopupScreen from "./PopupScreen";
 import Enemy from "./basic/Enemy";
 import GameObject from "./basic/GameObject";
+import HealthIndicator from "./HealthIndecator";
+import Indicator from "./basic/indicator";
 
 export default class Game {
 	animation: ReturnType<typeof window.requestAnimationFrame> | null;
@@ -10,6 +12,7 @@ export default class Game {
 	canvasElement: HTMLCanvasElement | null;
 	screen: CanvasRenderingContext2D | null;
 	objects: GameObject[];
+	indicators: Indicator[];
 	popupScreen: any;
 	player: Player;
 	constructor() {
@@ -27,6 +30,7 @@ export default class Game {
 		this.popupScreen = new PopupScreen(this);
 
 		this.objects = [];
+		this.indicators = [];
 
 		this.player = new Player(this);
 	}
@@ -36,13 +40,18 @@ export default class Game {
 		this.objects.push(new Enemy(this));
 		new KeyDetector(this, this.player);
 		this.draw();
+		this.indicators.push(new HealthIndicator(this, this.player));
 	}
 
 	draw() {
 		this.deleteMarkedObjects();
 		if (this.screen !== null && this.canvasElement !== null) {
 			this.screen.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+			// drawing game objects
 			this.objects.forEach((gameObject: GameObject) => gameObject.move());
+			// drawing indicators
+			this.indicators.forEach((indicator: Indicator) => indicator.draw());
+			// storing animation frame information
 			this.animation = requestAnimationFrame(this.draw);
 			this.isAnimationRunning = true;
 		}
