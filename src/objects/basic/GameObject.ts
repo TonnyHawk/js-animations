@@ -1,5 +1,6 @@
 import { moveVector, coordinate } from "../../types";
 import Game from "../Game";
+import Gun from "./Gun";
 
 export default class GameObject {
 	id: number;
@@ -14,6 +15,7 @@ export default class GameObject {
 		full: number;
 		available: number;
 	};
+	gun?: Gun;
 	type: "enemy" | "player" | "neutral";
 	constructor(game: Game) {
 		this.id = Date.now() * Math.floor(Math.random() * 100);
