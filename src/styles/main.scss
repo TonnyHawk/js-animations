@@ -1,4 +1,5 @@
 @import "./reset.scss";
+@import "./colors.scss";
 @import "./animations.scss";
 
 body {
@@ -91,3 +92,5 @@ body {
 		animation-duration: 0.4s;
 	}
 }
+
+@import "./blocks/indicator.scss";
