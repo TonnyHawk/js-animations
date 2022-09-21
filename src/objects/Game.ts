@@ -5,6 +5,7 @@ import Enemy from "./basic/Enemy";
 import GameObject from "./basic/GameObject";
 import HealthIndicator from "./HealthIndecator";
 import Indicator from "./basic/indicator";
+import GunIndicator from "./GunIndicator";
 
 export default class Game {
 	animation: ReturnType<typeof window.requestAnimationFrame> | null;
@@ -41,6 +42,7 @@ export default class Game {
 		new KeyDetector(this, this.player);
 		this.draw();
 		this.indicators.push(new HealthIndicator(this, this.player));
+		this.indicators.push(new GunIndicator(this, this.player));
 	}
 
 	draw() {
