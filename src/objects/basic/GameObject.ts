@@ -56,5 +56,8 @@ export default class GameObject {
 		// disapear
 		this.markedForDeletion = true;
 	}
-	move() {}
+
+	move() {
+		console.log("moving");
+	}
 }
