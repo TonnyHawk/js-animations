@@ -3,3 +3,5 @@ export interface coordinate {
 	top: number;
 	left: number;
 }
+
+export type AnimationFrame = ReturnType<typeof window.requestAnimationFrame> | null;
