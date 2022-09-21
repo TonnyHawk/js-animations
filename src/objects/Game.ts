@@ -6,9 +6,10 @@ import GameObject from "./basic/GameObject";
 import HealthIndicator from "./HealthIndecator";
 import Indicator from "./basic/indicator";
 import GunIndicator from "./GunIndicator";
+import { AnimationFrame } from "../types";
 
 export default class Game {
-	animation: ReturnType<typeof window.requestAnimationFrame> | null;
+	animation: AnimationFrame;
 	isAnimationRunning: boolean;
 	canvasElement: HTMLCanvasElement | null;
 	screen: CanvasRenderingContext2D | null;
