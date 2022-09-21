@@ -7,6 +7,10 @@ export default class Gun {
 	bulletsInClip: number;
 	shotRange: number;
 	isReloading: boolean;
+	reloadingTime: {
+		full: number;
+		left: number;
+	};
 	remainingTime: {
 		min: number;
 		max?: number;
@@ -24,6 +28,10 @@ export default class Gun {
 		this.remainingTime = {
 			min: 300,
 		};
+		this.reloadingTime = {
+			full: 2000,
+			left: 2000,
+		};
 		this.owner = owner;
 		this.lastShotTime = getTimestamp();
 		this.game = game;
@@ -36,7 +44,7 @@ export default class Gun {
 			this.bulletsInClip = this.clipSize;
 			console.log(this.owner.id);
 			console.log("gun is ready to shot");
-		}, 2000);
+		}, this.reloadingTime.full);
 	}
 	shot() {
 		if (this.bulletsInClip > 0) {
