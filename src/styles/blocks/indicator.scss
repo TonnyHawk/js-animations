@@ -1,0 +1,107 @@
+.indicator {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	bottom: 30px;
+
+	// .indicator__icon
+
+	&__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		left: -42px;
+		z-index: 2;
+	}
+
+	// .indicator__icon-img
+
+	&__icon-img {
+		width: 29px;
+		position: absolute;
+		z-index: 2;
+	}
+
+	// .indicator__icon-background-circle
+
+	&__icon-background-circle {
+		position: relative;
+		width: 44px;
+		height: 44px;
+		background-color: $main-gray;
+		z-index: 1;
+		border-radius: 100%;
+	}
+
+	// .indicator__progress-bar
+
+	&__progress-bar {
+		width: 160px;
+		height: 20px;
+		position: relative;
+		border-radius: 0px 10px 10px 0px;
+		z-index: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+	}
+
+	// .indicator__progress-bar-background
+
+	&__progress-bar-background {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 1;
+		background-color: $main-gray;
+	}
+
+	// .indicator__progress-bar-main-line
+
+	&__progress-bar-main-line {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		width: 100%;
+		height: 100%;
+		background-color: $success-green;
+	}
+
+	// .indicator__progress-bar-text
+
+	&__progress-bar-text {
+		font-family: Inter;
+		font-weight: 600;
+		font-size: 13px;
+		position: relative;
+		z-index: 3;
+		// color: white;
+	}
+}
+
+#player-health-indicator {
+	right: 40px;
+
+	.indicator {
+		// .indicator__progress-bar-main-line
+
+		&__progress-bar-main-line {
+			background-color: $success-green;
+		}
+	}
+}
+
+#player-gun-indicator {
+	left: calc(40px + 42px);
+
+	.indicator {
+		// .indicator__progress-bar-main-line
+
+		&__progress-bar-main-line {
+			background-color: $light-yellow;
+		}
+	}
+}
