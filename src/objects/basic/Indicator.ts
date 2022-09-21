@@ -1,5 +1,6 @@
 import Game from "../Game";
 import GameObject from "./GameObject";
+import Person from "./Person";
 
 export default class Indicator {
 	value: {
@@ -7,20 +8,17 @@ export default class Indicator {
 		current: number;
 	};
 	game: Game;
-	target: GameObject;
-	constructor(game: Game, target: GameObject) {
+	target: Person | GameObject;
+	constructor(game: Game, target: Person | GameObject) {
 		this.game = game;
 		this.target = target;
 		this.value = {
-			max: target.hp.full,
-			current: target.hp.available,
+			max: 0,
+			current: 0,
 		};
 	}
 	update(): void {
-		this.value = {
-			max: this.target.hp.full,
-			current: this.target.hp.available,
-		};
+		console.log("indicator update");
 	}
 	draw(): void {
 		console.log("indicator draw");
