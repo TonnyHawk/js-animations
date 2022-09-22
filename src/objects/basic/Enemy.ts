@@ -3,6 +3,7 @@ import Gun from "./Gun";
 import Person from "./Person";
 import Game from "../Game";
 import GameObject from "./GameObject";
+import HealthIndicator from "../HealthIndicator";
 
 export default class Enemy extends Person {
 	gun: Gun;
@@ -18,8 +19,8 @@ export default class Enemy extends Person {
 		this.height = 50;
 		this.width = 50;
 		this.position = {
-			top: 0,
-			left: 0,
+			top: 100,
+			left: 100,
 		};
 
 		this.speed = 1;
@@ -46,6 +47,8 @@ export default class Enemy extends Person {
 		this.gun = new Gun(game, this);
 
 		this.isDamagable = true;
+
+		this.hp.indicator = new HealthIndicator(game, this);
 
 		this.draw();
 	}
