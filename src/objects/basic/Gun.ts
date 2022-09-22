@@ -2,7 +2,6 @@ import { getTimestamp } from "../../utils";
 import Game from "../Game";
 import Bullet from "./Bullet";
 import { AnimationFrame } from "../../types";
-import GameObject from "./GameObject";
 import Person from "./Person";
 
 export default class Gun {
