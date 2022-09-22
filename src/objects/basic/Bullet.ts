@@ -101,7 +101,7 @@ export default class Bullet extends GameObject {
 	}
 
 	draw() {
-		let { screen } = this.player.game;
+		const { screen } = this.player.game;
 		if (screen != null) {
 			screen.fillStyle = "black";
 			screen.fillRect(this.position.left, this.position.top, this.width, this.height);
@@ -110,10 +110,10 @@ export default class Bullet extends GameObject {
 
 	move() {
 		if (this.player.game.canvasElement != null) {
-			let newTopCoord = this.getCoords().top + this.direction.top;
-			let newLeftCoord = this.getCoords().left + this.direction.left;
-			let newBottomCoord = this.getCoords().bottom + this.direction.top;
-			let newRightCoord = this.getCoords().right + this.direction.left;
+			const newTopCoord = this.getCoords().top + this.direction.top;
+			const newLeftCoord = this.getCoords().left + this.direction.left;
+			const newBottomCoord = this.getCoords().bottom + this.direction.top;
+			const newRightCoord = this.getCoords().right + this.direction.left;
 
 			if (this.measureFlightDelta() >= this.flyRange) this.die();
 
