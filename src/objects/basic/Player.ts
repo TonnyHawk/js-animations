@@ -1,6 +1,7 @@
 import Person from "./Person";
 import Gun from "./Gun";
 import Game from "../Game";
+import HealthIndicator from "../HealthIndicator";
 
 export default class Player extends Person {
 	game: Game;
@@ -26,6 +27,7 @@ export default class Player extends Person {
 		};
 
 		this.gun = new Gun(game, this);
+		this.hp.indicator = new HealthIndicator(game, this);
 
 		this.moveVectorName = "up";
 
