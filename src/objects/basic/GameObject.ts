@@ -1,6 +1,7 @@
 import { moveVector, coordinate } from "../../types";
 import Game from "../Game";
 import Gun from "./Gun";
+import Indicator from "./indicator";
 
 export default class GameObject {
 	id: number;
@@ -14,6 +15,7 @@ export default class GameObject {
 	hp: {
 		full: number;
 		available: number;
+		indicator?: Indicator;
 	};
 	gun?: Gun;
 	type: "enemy" | "player" | "neutral";
@@ -57,6 +59,7 @@ export default class GameObject {
 		// make some animations and side effects and then
 		// disapear
 		this.markedForDeletion = true;
+		if (this.hp.indicator) this.hp.indicator.destroy();
 	}
 
 	move() {
