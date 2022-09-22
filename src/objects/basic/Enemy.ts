@@ -55,10 +55,10 @@ export default class Enemy extends Person {
 			this.game.screen.fillStyle = "blue";
 			this.game.screen.fillRect(this.position.left, this.position.top, this.width, this.height);
 
-			let arrowImage = document.getElementById("player-direction-arrow") as HTMLImageElement;
-			let shrinkRatio = this.height / arrowImage.height;
+			const arrowImage = document.getElementById("player-direction-arrow") as HTMLImageElement;
+			const shrinkRatio = this.height / arrowImage.height;
 
-			let rotateObject = (angle: number) => {
+			const rotateObject = (angle: number) => {
 				if (this.game.screen !== null) {
 					this.game.screen.save();
 					this.game.screen.translate(this.position.left + this.width / 2, this.position.top + this.height / 2);
@@ -97,22 +97,22 @@ export default class Enemy extends Person {
 		if (this.target) this.target = null;
 	}
 
-	attack(callback: Function) {
+	attack(callback: any) {
 		if (this.target) {
-			let targetTop = this.target.obj.position.top;
-			let targetLeft = this.target.obj.position.left;
-			let selfTop = this.position.top;
-			let selfLeft = this.position.left;
+			const targetTop = this.target.obj.position.top;
+			const targetLeft = this.target.obj.position.left;
+			const selfTop = this.position.top;
+			const selfLeft = this.position.left;
 
-			let deltaTop = getModulus(targetTop - selfTop);
-			let deltaLeft = getModulus(targetLeft - selfLeft);
+			const deltaTop = getModulus(targetTop - selfTop);
+			const deltaLeft = getModulus(targetLeft - selfLeft);
 
-			let range = this.gun.shotRange;
+			const range = this.gun.shotRange;
 
 			if (deltaTop > 0) this.target.isTopAligned = false;
 			if (deltaLeft > 0) this.target.isLeftAligned = false;
 
-			let alignTopOnRange = () => {
+			const alignTopOnRange = () => {
 				if (this.target) {
 					if (deltaTop > range) {
 						if (selfTop > targetTop) this.setDirection("up");
@@ -125,7 +125,7 @@ export default class Enemy extends Person {
 				}
 			};
 
-			let alignLeftOnRange = () => {
+			const alignLeftOnRange = () => {
 				if (this.target) {
 					if (deltaLeft > range) {
 						if (selfLeft > targetLeft) this.setDirection("left");
@@ -138,7 +138,7 @@ export default class Enemy extends Person {
 				}
 			};
 
-			let alignTopPerfect = () => {
+			const alignTopPerfect = () => {
 				if (this.target) {
 					if (deltaTop > 0) {
 						let speed = this.speed;
@@ -153,7 +153,7 @@ export default class Enemy extends Person {
 				}
 			};
 
-			let alignLeftPerfect = () => {
+			const alignLeftPerfect = () => {
 				if (this.target) {
 					if (deltaLeft > 0) {
 						let speed = this.speed;
@@ -188,10 +188,10 @@ export default class Enemy extends Person {
 		if (this.game.canvasElement) {
 			this.attack(this.fight);
 
-			let newTopCoord = this.getCoords().top + this.direction.top;
-			let newLeftCoord = this.getCoords().left + this.direction.left;
-			let newBottomCoord = this.getCoords().bottom + this.direction.top;
-			let newRightCoord = this.getCoords().right + this.direction.left;
+			const newTopCoord = this.getCoords().top + this.direction.top;
+			const newLeftCoord = this.getCoords().left + this.direction.left;
+			const newBottomCoord = this.getCoords().bottom + this.direction.top;
+			const newRightCoord = this.getCoords().right + this.direction.left;
 
 			if (newTopCoord > 0 && newBottomCoord < this.game.canvasElement.height) {
 				this.position.top = newTopCoord;
