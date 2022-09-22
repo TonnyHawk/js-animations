@@ -35,6 +35,9 @@ export default class GunIndicator extends Indicator {
 		if (this.progressLineElement) {
 			this.progressLineElement.style.width = `${(this.value.current * 100) / this.value.max}%`;
 			this.textElement.textContent = this.text;
+			// changing the color of progress line
+			if (this.target.gun?.isReloading) this.progressLineElement.style.backgroundColor = "#3FB0F0";
+			else this.progressLineElement.style.removeProperty("background-color");
 		}
 	}
 }
