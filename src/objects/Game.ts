@@ -3,9 +3,9 @@ import Player from "./basic/Player";
 import PopupScreen from "./PopupScreen";
 import Enemy from "./basic/Enemy";
 import GameObject from "./basic/GameObject";
-import HealthIndicator from "./HealthIndecator";
+import PlayerHealthIndicator from "./PlayerHealthIndicator";
 import Indicator from "./basic/indicator";
-import GunIndicator from "./GunIndicator";
+import PlayerGunIndicator from "./PlayerGunIndicator";
 import { AnimationFrame } from "../types";
 
 export default class Game {
@@ -42,8 +42,8 @@ export default class Game {
 		this.objects.push(new Enemy(this));
 		new KeyDetector(this, this.player);
 		this.draw();
-		this.indicators.push(new HealthIndicator(this, this.player));
-		this.indicators.push(new GunIndicator(this, this.player));
+		this.indicators.push(new PlayerHealthIndicator(this, this.player));
+		this.indicators.push(new PlayerGunIndicator(this, this.player));
 	}
 
 	draw() {
@@ -66,6 +66,12 @@ export default class Game {
 			if (!el.markedForDeletion) cleanedList.push(el);
 		});
 		this.objects = cleanedList;
+
+		const cleanedIndicators: Indicator[] = [];
+		this.indicators.forEach((el: Indicator) => {
+			if (!el.markedForDeletion) cleanedIndicators.push(el);
+		});
+		this.indicators = cleanedIndicators;
 	}
 
 	resume() {
