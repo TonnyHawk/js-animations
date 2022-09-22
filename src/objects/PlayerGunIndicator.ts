@@ -2,7 +2,7 @@ import Indicator from "./basic/indicator";
 import Person from "./basic/Person";
 import Game from "./Game";
 
-export default class GunIndicator extends Indicator {
+export default class PlayerGunIndicator extends Indicator {
 	element: HTMLElement;
 	progressLineElement: HTMLElement;
 	textElement: HTMLElement;

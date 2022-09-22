@@ -2,7 +2,7 @@ import GameObject from "./basic/GameObject";
 import Indicator from "./basic/indicator";
 import Game from "./Game";
 
-export default class HealthIndicator extends Indicator {
+export default class PlayerHealthIndicator extends Indicator {
 	element: HTMLElement;
 	progressLineElement: HTMLElement;
 	textElement: HTMLElement;
