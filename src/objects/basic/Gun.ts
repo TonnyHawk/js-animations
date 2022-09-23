@@ -3,6 +3,7 @@ import Game from "../Game";
 import Bullet from "./Bullet";
 import { AnimationFrame } from "../../types";
 import Person from "./Person";
+import GunIndicator from "../GunIndicator";
 
 export default class Gun {
 	clipSize: number;
@@ -22,6 +23,7 @@ export default class Gun {
 	lastShotTime: number;
 	game: Game;
 	reloadingAnimation: AnimationFrame;
+	indicator: GunIndicator;
 
 	constructor(game: Game, owner: Person) {
 		this.clipSize = 3;
@@ -41,6 +43,7 @@ export default class Gun {
 		this.owner = owner;
 		this.lastShotTime = getTimestamp();
 		this.game = game;
+		this.indicator = new GunIndicator(game, owner);
 	}
 	reload() {
 		this.isReloading = true;
