@@ -60,6 +60,7 @@ export default class GameObject {
 		// disapear
 		this.markedForDeletion = true;
 		if (this.hp.indicator) this.hp.indicator.destroy();
+		if (this.gun?.indicator) this.gun.indicator.destroy();
 	}
 
 	move() {
