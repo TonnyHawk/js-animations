@@ -125,78 +125,9 @@ export default class Enemy extends Person {
 		if (this.target) this.target = null;
 	}
 
-	attack(callback: any) {
+	attack() {
 		if (this.target) {
-			const targetTop = this.target.obj.position.top;
-			const targetLeft = this.target.obj.position.left;
-			const selfTop = this.position.top;
-			const selfLeft = this.position.left;
-			const deltaTop = getModulus(targetTop - selfTop);
-			const deltaLeft = getModulus(targetLeft - selfLeft);
-			const range = this.gun.shotRange;
-			if (deltaTop > 0) this.target.isTopAligned = false;
-			if (deltaLeft > 0) this.target.isLeftAligned = false;
-			const alignTopOnRange = () => {
-				if (this.target) {
-					if (deltaTop > range) {
-						if (selfTop > targetTop) this.setDirection("up");
-						else if (selfTop < targetTop) this.setDirection("down");
-					} else {
-						this.target.isTopAligned = true;
-						this.direction.top = 0;
-						this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop);
-					}
-				}
-			};
-			const alignLeftOnRange = () => {
-				if (this.target) {
-					if (deltaLeft > range) {
-						if (selfLeft > targetLeft) this.setDirection("left");
-						else if (selfLeft < targetLeft) this.setDirection("right");
-					} else {
-						this.target.isLeftAligned = true;
-						this.direction.left = 0;
-						this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop);
-					}
-				}
-			};
-			const alignTopPerfect = () => {
-				if (this.target) {
-					if (deltaTop > 0) {
-						let speed = this.speed;
-						if (deltaTop < this.speed) speed = deltaTop;
-						if (selfTop > targetTop) this.setDirection("up", speed);
-						else if (selfTop < targetTop) this.setDirection("down", speed);
-					} else {
-						this.target.isTopAligned = true;
-						this.direction.top = 0;
-						this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop);
-					}
-				}
-			};
-			const alignLeftPerfect = () => {
-				if (this.target) {
-					if (deltaLeft > 0) {
-						let speed = this.speed;
-						if (deltaLeft < this.speed) speed = deltaLeft;
-						if (selfLeft > targetLeft) this.setDirection("left", speed);
-						else if (selfLeft < targetLeft) this.setDirection("right", speed);
-					} else {
-						this.target.isLeftAligned = true;
-						this.direction.left = 0;
-						this.faceToTarget(selfLeft, selfTop, targetLeft, targetTop);
-					}
-				}
-			};
-			if (deltaTop <= deltaLeft) {
-				if (!this.target.isTopAligned) alignTopPerfect();
-				else alignLeftOnRange();
-			}
-			if (deltaLeft < deltaTop) {
-				if (!this.target.isLeftAligned) alignLeftPerfect();
-				else alignTopOnRange();
-			}
-			if (this.target.isLeftAligned && this.target.isTopAligned) callback();
+			this.follow(this.target.obj, this.gun.shotRange, this.fight);
 		} else {
 			this.stop();
 		}
@@ -208,7 +139,7 @@ export default class Enemy extends Person {
 		this.actionRanges.forEach((range: ActionRange) => range.draw());
 
 		if (this.game.canvasElement) {
-			this.attack(this.fight);
+			this.attack();
 
 			const newTopCoord = this.getCoords().top + this.direction.top;
 			const newLeftCoord = this.getCoords().left + this.direction.left;
