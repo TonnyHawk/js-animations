@@ -3,9 +3,7 @@ import Player from "./basic/Player";
 import PopupScreen from "./PopupScreen";
 import Enemy from "./basic/Enemy";
 import GameObject from "./basic/GameObject";
-import PlayerHealthIndicator from "./PlayerHealthIndicator";
 import Indicator from "./basic/indicator";
-import PlayerGunIndicator from "./PlayerGunIndicator";
 import { AnimationFrame } from "../types";
 
 export default class Game {
@@ -42,8 +40,6 @@ export default class Game {
 		this.objects.push(new Enemy(this));
 		new KeyDetector(this, this.player);
 		this.draw();
-		this.indicators.push(new PlayerHealthIndicator(this, this.player));
-		this.indicators.push(new PlayerGunIndicator(this, this.player));
 	}
 
 	draw() {
