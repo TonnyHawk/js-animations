@@ -17,6 +17,14 @@ export default class ActionRange extends Addone {
 		this.setPosition(this.owner.position.left - this.range, this.owner.position.top - this.range);
 	}
 
+	setColor(color: string) {
+		this.color = color;
+	}
+
+	setRange(range: number) {
+		this.range = range;
+	}
+
 	update() {
 		const left = this.owner.position.left - this.range;
 		const top = this.owner.position.top - this.range;
