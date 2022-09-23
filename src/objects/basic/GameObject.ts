@@ -2,7 +2,7 @@ import { moveVector, coordinate } from "../../types";
 import ActionRange from "../addones/ActionRange";
 import Game from "../Game";
 import Gun from "./Gun";
-import Indicator from "./indicator";
+import Indicator from "./Indicator";
 
 export default class GameObject {
 	id: number;

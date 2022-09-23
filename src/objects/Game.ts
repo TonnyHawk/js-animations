@@ -3,7 +3,7 @@ import Player from "./basic/Player";
 import PopupScreen from "./PopupScreen";
 import Enemy from "./basic/Enemy";
 import GameObject from "./basic/GameObject";
-import Indicator from "./basic/indicator";
+import Indicator from "./basic/Indicator";
 import { AnimationFrame } from "../types";
 
 export default class Game {

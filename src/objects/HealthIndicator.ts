@@ -1,5 +1,5 @@
 import GameObject from "./basic/GameObject";
-import Indicator from "./basic/indicator";
+import Indicator from "./basic/Indicator";
 import Person from "./basic/Person";
 import Game from "./Game";
 
