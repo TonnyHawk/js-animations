@@ -1,5 +1,5 @@
 import { moveVector, coordinate } from "../../types";
-import ActionRange from "../addones/ActionRange";
+import ActionRangeManager from "../addones/ActionRangeManager";
 import Game from "../Game";
 import Gun from "./Gun";
 import Indicator from "./Indicator";
@@ -19,7 +19,7 @@ export default class GameObject {
 		indicator?: Indicator;
 	};
 	type: "enemy" | "player" | "neutral";
-	actionRanges: ActionRange[];
+	actionRanges: ActionRangeManager;
 	gun?: Gun;
 	indicators: Indicator[];
 	constructor(game: Game) {
@@ -39,7 +39,7 @@ export default class GameObject {
 		};
 		this.isDamagable = false;
 		this.type = "neutral";
-		this.actionRanges = [];
+		this.actionRanges = new ActionRangeManager();
 		this.indicators = [];
 	}
 	updateIndicators() {
