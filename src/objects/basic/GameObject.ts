@@ -18,9 +18,10 @@ export default class GameObject {
 		available: number;
 		indicator?: Indicator;
 	};
-	gun?: Gun;
 	type: "enemy" | "player" | "neutral";
 	actionRanges: ActionRange[];
+	gun?: Gun;
+	indicators: Indicator[];
 	constructor(game: Game) {
 		this.id = Date.now() * Math.floor(Math.random() * 100);
 		this.moveVectorName = "up";
@@ -39,6 +40,11 @@ export default class GameObject {
 		this.isDamagable = false;
 		this.type = "neutral";
 		this.actionRanges = [];
+		this.indicators = [];
+	}
+	updateIndicators() {
+		if (this.hp.indicator) this.indicators.push(this.hp.indicator);
+		if (this.gun) this.indicators.push(this.gun.indicator);
 	}
 	getDirectionName() {
 		return this.moveVectorName;
@@ -62,8 +68,7 @@ export default class GameObject {
 		// make some animations and side effects and then
 		// disapear
 		this.markedForDeletion = true;
-		if (this.hp.indicator) this.hp.indicator.destroy();
-		if (this.gun?.indicator) this.gun.indicator.destroy();
+		this.indicators.forEach((indicator: Indicator) => indicator.destroy());
 	}
 
 	move() {
