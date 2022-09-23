@@ -66,4 +66,14 @@ export default class GameObject {
 	move() {
 		console.log("moving");
 	}
+
+	setSize(width: number, height: number) {
+		this.width = width;
+		this.height = height;
+	}
+
+	setPosition(left: number, top: number) {
+		this.position.left = left;
+		this.position.top = top;
+	}
 }
