@@ -11,7 +11,7 @@ export default class keyDetector {
 		}
 
 		function keyUpHandler(e: KeyboardEvent) {
-			let key = getPressedKeyName(e);
+			const key = getPressedKeyName(e);
 			switch (key) {
 				case "ArrowLeft":
 					if (player.direction.left < 0) player.direction.left = 0;
@@ -31,7 +31,7 @@ export default class keyDetector {
 		let keyUpHandlerDelay: ReturnType<typeof window.setTimeout>;
 
 		document.addEventListener("keydown", (e) => {
-			let key = getPressedKeyName(e);
+			const key = getPressedKeyName(e);
 
 			let enemy;
 			// console.log(key);
