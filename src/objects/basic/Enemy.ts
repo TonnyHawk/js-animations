@@ -5,6 +5,7 @@ import Game from "../Game";
 import GameObject from "./GameObject";
 import HealthIndicator from "../HealthIndicator";
 import ActionRange from "../addones/ActionRange";
+import ActionRangeManager from "../addones/ActionRangeManager";
 
 export default class Enemy extends Person {
 	gun: Gun;
@@ -57,7 +58,7 @@ export default class Enemy extends Person {
 		this.potentialTarget = potentialTarget;
 		this.visibilityRange = new ActionRange(this.game, this, 200, "red");
 		this.attackRange = new ActionRange(this.game, this, this.gun.shotRange, "green");
-		this.actionRanges = [this.visibilityRange, this.attackRange];
+		this.actionRanges.add([this.visibilityRange, this.attackRange]);
 
 		this.updateIndicators();
 		this.draw();
@@ -136,7 +137,7 @@ export default class Enemy extends Person {
 	move() {
 		this.lookForTheTarget();
 
-		this.actionRanges.forEach((range: ActionRange) => range.draw());
+		this.actionRanges.draw();
 
 		if (this.game.canvasElement) {
 			this.attack();

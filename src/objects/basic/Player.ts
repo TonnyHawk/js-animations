@@ -2,6 +2,7 @@ import Person from "./Person";
 import Gun from "./Gun";
 import Game from "../Game";
 import HealthIndicator from "../HealthIndicator";
+import ActionRange from "../addones/ActionRange";
 
 export default class Player extends Person {
 	game: Game;
@@ -31,11 +32,14 @@ export default class Player extends Person {
 
 		this.moveVectorName = "up";
 
+		this.actionRanges.add(new ActionRange(this.game, this, 50, "blue"));
+
 		this.updateIndicators();
 		this.draw();
 	}
 
 	draw() {
+		this.actionRanges.draw();
 		if (this.game.screen !== null) {
 			this.game.screen.fillStyle = "red";
 			this.game.screen.fillRect(this.position.left, this.position.top, this.width, this.height);
