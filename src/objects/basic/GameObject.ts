@@ -1,4 +1,5 @@
 import { moveVector, coordinate } from "../../types";
+import ActionRange from "../addones/ActionRange";
 import Game from "../Game";
 import Gun from "./Gun";
 import Indicator from "./indicator";
@@ -19,6 +20,7 @@ export default class GameObject {
 	};
 	gun?: Gun;
 	type: "enemy" | "player" | "neutral";
+	actionRanges: ActionRange[];
 	constructor(game: Game) {
 		this.id = Date.now() * Math.floor(Math.random() * 100);
 		this.moveVectorName = "up";
@@ -36,6 +38,7 @@ export default class GameObject {
 		};
 		this.isDamagable = false;
 		this.type = "neutral";
+		this.actionRanges = [];
 	}
 	getDirectionName() {
 		return this.moveVectorName;
