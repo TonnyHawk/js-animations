@@ -59,6 +59,7 @@ export default class Enemy extends Person {
 		this.attackRange = new ActionRange(this.game, this, this.gun.shotRange, "green");
 		this.actionRanges = [this.visibilityRange, this.attackRange];
 
+		this.updateIndicators();
 		this.draw();
 	}
 
@@ -130,15 +131,11 @@ export default class Enemy extends Person {
 			const targetLeft = this.target.obj.position.left;
 			const selfTop = this.position.top;
 			const selfLeft = this.position.left;
-
 			const deltaTop = getModulus(targetTop - selfTop);
 			const deltaLeft = getModulus(targetLeft - selfLeft);
-
 			const range = this.gun.shotRange;
-
 			if (deltaTop > 0) this.target.isTopAligned = false;
 			if (deltaLeft > 0) this.target.isLeftAligned = false;
-
 			const alignTopOnRange = () => {
 				if (this.target) {
 					if (deltaTop > range) {
@@ -151,7 +148,6 @@ export default class Enemy extends Person {
 					}
 				}
 			};
-
 			const alignLeftOnRange = () => {
 				if (this.target) {
 					if (deltaLeft > range) {
@@ -164,7 +160,6 @@ export default class Enemy extends Person {
 					}
 				}
 			};
-
 			const alignTopPerfect = () => {
 				if (this.target) {
 					if (deltaTop > 0) {
@@ -179,7 +174,6 @@ export default class Enemy extends Person {
 					}
 				}
 			};
-
 			const alignLeftPerfect = () => {
 				if (this.target) {
 					if (deltaLeft > 0) {
@@ -194,17 +188,14 @@ export default class Enemy extends Person {
 					}
 				}
 			};
-
 			if (deltaTop <= deltaLeft) {
 				if (!this.target.isTopAligned) alignTopPerfect();
 				else alignLeftOnRange();
 			}
-
 			if (deltaLeft < deltaTop) {
 				if (!this.target.isLeftAligned) alignLeftPerfect();
 				else alignTopOnRange();
 			}
-
 			if (this.target.isLeftAligned && this.target.isTopAligned) callback();
 		} else {
 			this.stop();

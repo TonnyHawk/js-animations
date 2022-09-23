@@ -31,6 +31,7 @@ export default class Player extends Person {
 
 		this.moveVectorName = "up";
 
+		this.updateIndicators();
 		this.draw();
 	}
 
