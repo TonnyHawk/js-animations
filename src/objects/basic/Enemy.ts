@@ -1,9 +1,10 @@
-import { getModulus } from "../../utils";
+import { checkColision, getModulus } from "../../utils";
 import Gun from "./Gun";
 import Person from "./Person";
 import Game from "../Game";
 import GameObject from "./GameObject";
 import HealthIndicator from "../HealthIndicator";
+import ActionRange from "../addones/ActionRange";
 
 export default class Enemy extends Person {
 	gun: Gun;
@@ -13,7 +14,10 @@ export default class Enemy extends Person {
 		isLeftAligned: boolean;
 		isTopAligned: boolean;
 	} | null;
-	constructor(game: Game, target: GameObject | null = null) {
+	potentialTarget: GameObject;
+	visibilityRange: ActionRange;
+	attackRange: ActionRange;
+	constructor(game: Game, target: GameObject | null = null, potentialTarget: GameObject) {
 		super(game);
 
 		this.height = 50;
@@ -50,6 +54,11 @@ export default class Enemy extends Person {
 
 		this.hp.indicator = new HealthIndicator(game, this);
 
+		this.potentialTarget = potentialTarget;
+		this.visibilityRange = new ActionRange(this.game, this, 200, "red");
+		this.attackRange = new ActionRange(this.game, this, this.gun.shotRange, "green");
+		this.actionRanges = [this.visibilityRange, this.attackRange];
+
 		this.draw();
 	}
 
@@ -84,6 +93,21 @@ export default class Enemy extends Person {
 				case "down":
 					rotateObject(180);
 					break;
+			}
+		}
+	}
+
+	lookForTheTarget() {
+		if (!this.target) {
+			console.log("looking for the target");
+			if (checkColision(this.potentialTarget, this.visibilityRange)) {
+				console.log("set target");
+
+				this.setTarget(this.potentialTarget);
+			}
+		} else {
+			if (!checkColision(this.potentialTarget, this.visibilityRange)) {
+				this.resetTarget();
 			}
 		}
 	}
@@ -188,6 +212,10 @@ export default class Enemy extends Person {
 	}
 
 	move() {
+		this.lookForTheTarget();
+
+		this.actionRanges.forEach((range: ActionRange) => range.draw());
+
 		if (this.game.canvasElement) {
 			this.attack(this.fight);
 
