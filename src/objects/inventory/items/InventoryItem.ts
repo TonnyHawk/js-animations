@@ -29,6 +29,7 @@ export default class InventoryItem extends GameObject {
 	}
 
 	collect(person: Player) {
+		person.around.remove(this);
 		person.inventory.addItem(this);
 		this.die();
 	}
