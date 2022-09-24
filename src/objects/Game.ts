@@ -5,6 +5,8 @@ import Enemy from "./basic/Enemy";
 import GameObject from "./basic/GameObject";
 import Indicator from "./indicators/Indicator";
 import { AnimationFrame } from "../types";
+import BulletItem from "./inventory/items/BulletItem";
+import InventoryItem from "./inventory/items/InventoryItem";
 
 export default class Game {
 	animation: AnimationFrame;
@@ -15,7 +17,10 @@ export default class Game {
 	indicators: Indicator[];
 	popupScreen: any;
 	player: Player;
+	hintText: string;
+	items: InventoryItem[];
 	constructor() {
+		this.hintText = "Hello";
 		this.animation = null;
 		this.isAnimationRunning = false;
 
@@ -31,14 +36,16 @@ export default class Game {
 
 		this.objects = [];
 		this.indicators = [];
+		this.items = [];
 
 		this.player = new Player(this);
 	}
 
 	start() {
 		this.objects.push(this.player);
-		this.objects.push(new Enemy(this, null, this.player));
+		// this.objects.push(new Enemy(this, null, this.player));
 		new KeyDetector(this, this.player);
+		this.items.push(new BulletItem(this));
 		this.draw();
 	}
 
@@ -50,6 +57,13 @@ export default class Game {
 			this.objects.forEach((gameObject: GameObject) => gameObject.move());
 			// drawing indicators
 			this.indicators.forEach((indicator: Indicator) => indicator.draw());
+			this.items.forEach((item: InventoryItem) => item.draw());
+
+			if (this.hintText != null) {
+				this.screen.textAlign = "center";
+				this.screen.font = "30px Arial";
+				this.screen.fillText(this.hintText, this.player.position.left + this.player.width / 2, this.player.position.top - 100);
+			}
 			// storing animation frame information
 			this.animation = requestAnimationFrame(this.draw);
 			this.isAnimationRunning = true;
@@ -68,6 +82,12 @@ export default class Game {
 			if (!el.markedForDeletion) cleanedIndicators.push(el);
 		});
 		this.indicators = cleanedIndicators;
+
+		const cleanedItems: InventoryItem[] = [];
+		this.items.forEach((el) => {
+			if (!el.markedForDeletion) cleanedItems.push(el);
+		});
+		this.items = cleanedItems;
 	}
 
 	resume() {
