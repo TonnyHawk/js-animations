@@ -74,7 +74,7 @@ export default class keyDetector {
 					break;
 				case "e":
 					console.log(player.around.objects);
-					player.around.objects[0].collect(player);
+					if (player.around.objects.length > 0) player.around.objects[0].collect(player);
 					break;
 			}
 
