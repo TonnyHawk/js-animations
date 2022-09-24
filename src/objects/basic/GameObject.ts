@@ -3,7 +3,7 @@ import { getTimestamp } from "../../utils";
 import ActionRangeManager from "../addones/ActionRangeManager";
 import Game from "../Game";
 import Gun from "./Gun";
-import Indicator from "./Indicator";
+import Indicator from "../indicators/Indicator";
 
 export default class GameObject {
 	id: number;

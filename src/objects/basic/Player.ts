@@ -1,7 +1,7 @@
 import Person from "./Person";
 import Gun from "./Gun";
 import Game from "../Game";
-import HealthIndicator from "../HealthIndicator";
+import HealthIndicator from "../indicators/HealthIndicator";
 import ActionRange from "../addones/ActionRange";
 
 export default class Player extends Person {

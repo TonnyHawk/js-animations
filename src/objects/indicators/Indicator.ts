@@ -1,7 +1,7 @@
 import { coordinate } from "../../types";
 import Game from "../Game";
-import GameObject from "./GameObject";
-import Person from "./Person";
+import GameObject from "../basic/GameObject";
+import Person from "../basic/Person";
 
 export default class Indicator {
 	value: {

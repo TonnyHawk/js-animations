@@ -3,7 +3,7 @@ import Game from "../Game";
 import Bullet from "./Bullet";
 import { AnimationFrame } from "../../types";
 import Person from "./Person";
-import GunIndicator from "../GunIndicator";
+import GunIndicator from "../indicators/GunIndicator";
 
 export default class Gun {
 	clipSize: number;

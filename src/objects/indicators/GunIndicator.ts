@@ -1,7 +1,7 @@
-import GameObject from "./basic/GameObject";
-import Indicator from "./basic/Indicator";
-import Person from "./basic/Person";
-import Game from "./Game";
+import GameObject from "../basic/GameObject";
+import Indicator from "./Indicator";
+import Person from "../basic/Person";
+import Game from "../Game";
 
 export default class GunIndicator extends Indicator {
 	constructor(game: Game, target: Person | GameObject) {

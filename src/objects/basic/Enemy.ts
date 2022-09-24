@@ -3,7 +3,7 @@ import Gun from "./Gun";
 import Person from "./Person";
 import Game from "../Game";
 import GameObject from "./GameObject";
-import HealthIndicator from "../HealthIndicator";
+import HealthIndicator from "../indicators/HealthIndicator";
 import ActionRange from "../addones/ActionRange";
 
 export default class Enemy extends Person {
