@@ -133,6 +133,9 @@ export default class Player extends Person {
 					this.around.remove(item);
 				}
 			});
+			if (this.game.items.length === 0) {
+				this.game.hintText = "";
+			}
 			this.draw();
 		}
 	}
