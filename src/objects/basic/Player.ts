@@ -35,7 +35,6 @@ export default class Player extends Person {
 		this.actionRanges.add(new ActionRange(this.game, this, 50, "blue"));
 
 		this.updateIndicators();
-		this.draw();
 	}
 
 	draw() {
@@ -76,6 +75,7 @@ export default class Player extends Person {
 	}
 
 	move() {
+		this.heal();
 		if (this.game.canvasElement !== null) {
 			const newTopCoord = this.getCoords().top + this.direction.top;
 			const newLeftCoord = this.getCoords().left + this.direction.left;
