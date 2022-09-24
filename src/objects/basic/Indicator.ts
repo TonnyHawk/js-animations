@@ -59,6 +59,9 @@ export default class Indicator {
 			screen.fillRect(this.position.left, this.position.top, this.width, this.height);
 			screen.fillStyle = this.fillColor;
 			screen.fillRect(this.position.left, this.position.top, (this.value.current * this.width) / this.value.max, this.height);
+			// draw a border for better visual experience
+			screen.strokeStyle = "black";
+			screen.strokeRect(this.position.left, this.position.top, this.width, this.height);
 		}
 	}
 
