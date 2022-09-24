@@ -75,6 +75,9 @@ export default class GameObject {
 			const healingDelta = now - this.hp.healing.startedAt;
 			this.hp.available = this.hp.healing.startValue + (healingDelta * this.hp.healing.speed) / 1000;
 		} else this.hp.healing.startedAt = 0;
+
+		// to prevent available hp be a '100' with floating point like '100.00030'
+		if (this.hp.available >= this.hp.full) this.hp.available = this.hp.full;
 	}
 
 	updateIndicators() {
