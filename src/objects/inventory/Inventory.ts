@@ -1,6 +1,6 @@
 import Person from "../basic/Person";
 import Game from "../Game";
-import InventoryItem from "./InventoryItem";
+import InventoryItem from "./items/InventoryItem";
 
 export default class Inventory {
 	game: Game;
@@ -16,6 +16,8 @@ export default class Inventory {
 	}
 	show() {
 		console.log("----INVENTORY---");
-		this.items.forEach((el) => console.log(el));
+		if (this.items.length > 0) {
+			this.items.forEach((el) => console.log(el));
+		} else console.log("inventory is empty");
 	}
 }
