@@ -1,0 +1,84 @@
+.gun {
+	position: fixed;
+	left: 28px;
+	bottom: 25px;
+
+	// .gun__head
+	&__head {
+		margin-bottom: 10px;
+	}
+
+	// .gun__title
+
+	&__title {
+		font-family: Inter;
+		font-weight: 600;
+		font-size: 13px;
+	}
+
+	// .gun__body
+
+	&__body {
+		display: flex;
+	}
+
+	// .gun__icon
+
+	&__icon {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	// .gun__icon-background
+
+	&__icon-background {
+		width: 52px;
+		height: 52px;
+		background: #d9d9d9;
+		border-radius: 100%;
+	}
+
+	// .gun__icon-image
+
+	&__icon-image {
+		position: absolute;
+		width: 34px;
+	}
+
+	// .gun__info
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin-left: 7px;
+	}
+
+	// .gun__info-property
+
+	&__info-property {
+		font-family: Inter;
+		font-size: 13px;
+		display: flex;
+		margin-bottom: 5px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	// .gun__info-property-name
+
+	&__info-property-name {
+		font-weight: 600;
+	}
+
+	// .gun__info-property-value
+
+	&__info-property-value {
+		font-weight: 400;
+		margin-left: 5px;
+	}
+}

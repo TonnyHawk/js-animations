@@ -17,19 +17,6 @@
 				margin: 0;
 				padding: 0;
 			}
-			#cube {
-				width: 100px;
-				height: 100px;
-				background-color: red;
-				border: 1px solid black;
-				position: absolute;
-				top: 0;
-				left: 0;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				z-index: 10;
-			}
 
 			#assets {
 				display: none;
@@ -51,6 +38,28 @@
     </div> -->
 
 		<canvas id="screen" width="500" height="400"></canvas>
+
+		<div class="gun" id="gun">
+			<!-- <div class="gun__head">
+				<p class="gun__title">Big machine gun from ww2</p>
+			</div> -->
+			<div class="gun__body">
+				<div class="gun__icon">
+					<div class="gun__icon-background"></div>
+					<img class="gun__icon-image" src="img/icons/gun.png" />
+				</div>
+				<div class="gun__info">
+					<div class="gun__info-property">
+						<p class="gun__info-property-name">Available</p>
+						<p class="gun__info-property-value" id="gun-prop-available">3</p>
+					</div>
+					<div class="gun__info-property">
+						<p class="gun__info-property-name">Full</p>
+						<p class="gun__info-property-value" id="gun-prop-full">173</p>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="popup-screen">
 			<div class="popup-screen__background-layer"></div>
