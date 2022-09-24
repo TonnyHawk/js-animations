@@ -101,9 +101,9 @@ export default class Enemy extends Person {
 
 	lookForTheTarget() {
 		if (!this.target) {
-			console.log("looking for the target");
+			// console.log("looking for the target");
 			if (checkColision(this.potentialTarget, this.visibilityRange)) {
-				console.log("set target");
+				// console.log("set target");
 
 				this.setTarget(this.potentialTarget);
 			}

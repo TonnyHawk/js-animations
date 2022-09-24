@@ -98,7 +98,7 @@ export default class GameObject {
 	getDamaged(damage: number) {
 		this.hp.available -= damage;
 		this.hp.lastTimeDamaged = getTimestamp();
-		console.log("hp: " + this.hp.available);
+		// console.log("hp: " + this.hp.available);
 
 		if (this.hp.available <= 0) this.die();
 	}
@@ -111,7 +111,7 @@ export default class GameObject {
 	}
 
 	move() {
-		console.log("moving");
+		// console.log("moving");
 	}
 
 	setSize(width: number, height: number) {
