@@ -26,4 +26,26 @@ export default class GunIndicator extends Indicator {
 			this.updatePosition();
 		}
 	}
+
+	draw(): void {
+		this.update();
+		if (this.game.screen && this.target.gun) {
+			const { screen } = this.game;
+			// basic shape
+			screen.fillStyle = "#D9D9D9";
+			screen.fillRect(this.position.left, this.position.top, this.width, this.height);
+			screen.fillStyle = this.fillColor;
+			screen.fillRect(this.position.left, this.position.top, (this.value.current * this.width) / this.value.max, this.height);
+			// Draw a border
+			screen.strokeStyle = "black";
+			screen.strokeRect(this.position.left, this.position.top, this.width, this.height);
+			// draw gun clip size
+			const { clipSize } = this.target.gun;
+			const clipUnitBarWidth = this.width / clipSize;
+			for (let i = 0; i < clipSize; i++) {
+				const barMarginLeft = clipUnitBarWidth * i;
+				screen.strokeRect(this.position.left + barMarginLeft, this.position.top, clipUnitBarWidth, this.height);
+			}
+		}
+	}
 }
