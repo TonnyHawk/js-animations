@@ -4,8 +4,10 @@ import Game from "../Game";
 import HealthIndicator from "../indicators/HealthIndicator";
 import ActionRange from "../addones/ActionRange";
 import PlayerGunIndicator from "../indicators/PlayerGunIndicator";
+import Inventory from "../inventory/Inventory";
 
 export default class Player extends Person {
+	inventory: Inventory;
 	game: Game;
 	gun: Gun;
 	constructor(game: Game) {
@@ -36,6 +38,8 @@ export default class Player extends Person {
 		this.actionRanges.add(new ActionRange(this.game, this, 50, "blue"));
 
 		this.indicators.push(new PlayerGunIndicator(this.game, this));
+
+		this.inventory = new Inventory(this.game, this);
 
 		this.updateIndicators();
 	}
