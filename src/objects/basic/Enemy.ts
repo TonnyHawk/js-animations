@@ -1,11 +1,10 @@
-import { checkColision, getModulus } from "../../utils";
+import { checkColision } from "../../utils";
 import Gun from "./Gun";
 import Person from "./Person";
 import Game from "../Game";
 import GameObject from "./GameObject";
 import HealthIndicator from "../HealthIndicator";
 import ActionRange from "../addones/ActionRange";
-import ActionRangeManager from "../addones/ActionRangeManager";
 
 export default class Enemy extends Person {
 	gun: Gun;
@@ -65,6 +64,7 @@ export default class Enemy extends Person {
 	}
 
 	draw() {
+		this.actionRanges.draw();
 		if (this.game.screen !== null) {
 			this.game.screen.fillStyle = "blue";
 			this.game.screen.fillRect(this.position.left, this.position.top, this.width, this.height);
@@ -136,8 +136,6 @@ export default class Enemy extends Person {
 
 	move() {
 		this.lookForTheTarget();
-
-		this.actionRanges.draw();
 
 		if (this.game.canvasElement) {
 			this.attack();
