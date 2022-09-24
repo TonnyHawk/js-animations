@@ -1,4 +1,5 @@
 import { moveVector, coordinate } from "../../types";
+import { getTimestamp } from "../../utils";
 import ActionRangeManager from "../addones/ActionRangeManager";
 import Game from "../Game";
 import Gun from "./Gun";
@@ -17,6 +18,18 @@ export default class GameObject {
 		full: number;
 		available: number;
 		indicator?: Indicator;
+		// timestamp of last recieved damage
+		lastTimeDamaged: number;
+		// how long should object not be damaged to start healing
+		timeWithoutDamage: number;
+		healing: {
+			// ph per seccond
+			speed: number;
+			// how long should object not be damaged to start healing
+			startedAt: number;
+			// how much hp has player had before the healing started
+			startValue: number;
+		};
 	};
 	type: "enemy" | "player" | "neutral";
 	actionRanges: ActionRangeManager;
@@ -36,12 +49,34 @@ export default class GameObject {
 		this.hp = {
 			full: 100,
 			available: 100,
+			lastTimeDamaged: 0,
+			timeWithoutDamage: 3000,
+			healing: {
+				speed: 20,
+				startedAt: 0,
+				startValue: 0,
+			},
 		};
 		this.isDamagable = false;
 		this.type = "neutral";
 		this.actionRanges = new ActionRangeManager();
 		this.indicators = [];
 	}
+
+	heal() {
+		const now = getTimestamp();
+		const lastTimeDamagedDelta = now - this.hp.lastTimeDamaged;
+
+		if (this.hp.available < this.hp.full && lastTimeDamagedDelta > this.hp.timeWithoutDamage) {
+			if (this.hp.healing.startedAt === 0) {
+				this.hp.healing.startedAt = now;
+				this.hp.healing.startValue = this.hp.available;
+			}
+			const healingDelta = now - this.hp.healing.startedAt;
+			this.hp.available = this.hp.healing.startValue + (healingDelta * this.hp.healing.speed) / 1000;
+		} else this.hp.healing.startedAt = 0;
+	}
+
 	updateIndicators() {
 		if (this.hp.indicator) this.indicators.push(this.hp.indicator);
 		if (this.gun) this.indicators.push(this.gun.indicator);
@@ -59,6 +94,7 @@ export default class GameObject {
 	}
 	getDamaged(damage: number) {
 		this.hp.available -= damage;
+		this.hp.lastTimeDamaged = getTimestamp();
 		console.log("hp: " + this.hp.available);
 
 		if (this.hp.available <= 0) this.die();
