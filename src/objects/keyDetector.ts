@@ -69,6 +69,9 @@ export default class keyDetector {
 					enemy.resetTarget();
 					console.log("target reseted");
 					break;
+				case "i":
+					player.inventory.show();
+					break;
 			}
 
 			// separated insruction for space to prevent blocking shoot functionality while moving the person
