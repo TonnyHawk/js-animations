@@ -5,11 +5,21 @@ import HealthIndicator from "../indicators/HealthIndicator";
 import ActionRange from "../addones/ActionRange";
 import PlayerGunIndicator from "../indicators/PlayerGunIndicator";
 import Inventory from "../inventory/Inventory";
+import { checkColision } from "../../utils";
+import InventoryItem from "../inventory/items/InventoryItem";
+import GameObject from "./GameObject";
 
 export default class Player extends Person {
+	visibilityRange: ActionRange;
 	inventory: Inventory;
 	game: Game;
 	gun: Gun;
+	around: {
+		objects: InventoryItem[];
+		check: (object: InventoryItem) => boolean;
+		remove: (object: InventoryItem) => void;
+		add: (object: InventoryItem) => void;
+	};
 	constructor(game: Game) {
 		super(game);
 		this.game = game;
@@ -35,12 +45,29 @@ export default class Player extends Person {
 
 		this.moveVectorName = "up";
 
-		this.actionRanges.add(new ActionRange(this.game, this, 50, "blue"));
+		this.visibilityRange = new ActionRange(this.game, this, 50, "blue");
+		this.actionRanges.add(this.visibilityRange);
 
 		this.indicators.push(new PlayerGunIndicator(this.game, this));
 
 		this.inventory = new Inventory(this.game, this);
-
+		this.around = {
+			objects: [],
+			check: function (object) {
+				const index = this.objects.indexOf(object);
+				if (index >= 0) return true;
+				return false;
+			},
+			add: function (object) {
+				if (!this.check(object)) this.objects.push(object);
+			},
+			remove: function (object) {
+				if (this.check(object)) {
+					const index = this.objects.indexOf(object);
+					this.objects.splice(index, 1);
+				}
+			},
+		};
 		this.updateIndicators();
 	}
 
@@ -96,6 +123,16 @@ export default class Player extends Person {
 				this.position.left = newLeftCoord;
 			}
 
+			// check collisions
+			this.game.items.forEach((item: InventoryItem) => {
+				if (checkColision(item, this.visibilityRange)) {
+					this.game.hintText = "Press e to pick the item";
+					this.around.add(item);
+				} else {
+					this.game.hintText = "";
+					this.around.remove(item);
+				}
+			});
 			this.draw();
 		}
 	}
