@@ -3,6 +3,7 @@ import Gun from "./Gun";
 import Game from "../Game";
 import HealthIndicator from "../indicators/HealthIndicator";
 import ActionRange from "../addones/ActionRange";
+import PlayerGunIndicator from "../indicators/PlayerGunIndicator";
 
 export default class Player extends Person {
 	game: Game;
@@ -33,6 +34,8 @@ export default class Player extends Person {
 		this.moveVectorName = "up";
 
 		this.actionRanges.add(new ActionRange(this.game, this, 50, "blue"));
+
+		this.indicators.push(new PlayerGunIndicator(this.game, this));
 
 		this.updateIndicators();
 	}
