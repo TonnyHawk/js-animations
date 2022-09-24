@@ -72,6 +72,10 @@ export default class keyDetector {
 				case "i":
 					player.inventory.show();
 					break;
+				case "e":
+					console.log(player.around.objects);
+					player.around.objects[0].collect(player);
+					break;
 			}
 
 			// separated insruction for space to prevent blocking shoot functionality while moving the person
