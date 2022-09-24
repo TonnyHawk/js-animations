@@ -49,7 +49,7 @@ export default class Indicator {
 	}
 
 	update(): void {
-		console.log("indicator update");
+		// console.log("indicator update");^
 	}
 	draw(): void {
 		this.update();

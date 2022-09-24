@@ -47,7 +47,7 @@ export default class Gun {
 	}
 	reload() {
 		this.isReloading = true;
-		console.log("reloading");
+		console.log("gun is reloading");
 		const reloading = () => {
 			const now = getTimestamp();
 			if (this.reloadingTime.end === 0) this.reloadingTime.end = now + this.reloadingTime.full;

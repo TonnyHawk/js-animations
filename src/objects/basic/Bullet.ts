@@ -131,7 +131,7 @@ export default class Bullet extends GameObject {
 		this.game.objects.forEach((obj) => {
 			if (obj.isDamagable) {
 				if (checkColision(this, obj)) {
-					console.log("Some object is being hit by bullet");
+					// console.log("Some object is being hit by bullet");
 					this.die();
 					obj.getDamaged(this.damage);
 				}
