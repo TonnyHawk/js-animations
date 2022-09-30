@@ -1,0 +1,46 @@
+.popup-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	backdrop-filter: blur(20px);
+	visibility: hidden;
+	opacity: 0;
+	z-index: 11;
+	overflow-y: auto;
+
+	// .popup-screen__background-layer
+	&__background-layer {
+		background: rgba(128, 128, 128, 0.56);
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 1;
+	}
+
+	// .popup-screen__inner
+
+	&__inner {
+		position: relative;
+		z-index: 2;
+	}
+
+	&__game-menu {
+		align-self: center;
+	}
+
+	&__inventory {
+		margin-top: 55px;
+	}
+
+	&.is-active {
+		animation: fade-in;
+		animation-fill-mode: forwards;
+		animation-duration: 0.4s;
+	}
+}
