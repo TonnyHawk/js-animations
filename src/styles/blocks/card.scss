@@ -1,7 +1,6 @@
 .card {
 	border-radius: 10px;
 	// background: #f2f2f2;
-	background: #ededed;
 	font-family: Inter;
 	overflow: hidden;
 	// .card__head
@@ -51,6 +50,7 @@
 
 	&__body {
 		padding: 30px 24px;
+		background: #ededed;
 	}
 
 	// .card__title
