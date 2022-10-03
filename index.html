@@ -64,7 +64,7 @@
 			</div>
 		</div>
 
-		<div class="popup-screen" id="pause-screen">
+		<div class="popup-screen" id="pause-screen" style="display: none">
 			<div class="popup-screen__background-layer"></div>
 			<div class="popup-screen__inner popup-screen__game-menu game-menu">
 				<p class="game-menu__title" id="popup-screen-title">Game Paused</p>
@@ -110,25 +110,25 @@
 							</form>
 						</div>
 						<div class="inventory__items">
-							<div class="inventory__item">
+							<div class="inventory__scroll scroll">
+								<div class="scroll__track"></div>
+								<div class="scroll__thumb"></div>
+							</div>
+							<div class="inventory__item available">
 								<img src="img/inventory/chicken-leg.png" alt="" class="inventory__item-image" />
 								<p class="inventory__item-counter">10</p>
 							</div>
-							<div class="inventory__item is-active">
+							<div class="inventory__item available is-active">
 								<img src="img/inventory/bullets.png" alt="" class="inventory__item-image" />
 								<p class="inventory__item-counter">29</p>
 							</div>
 							<div class="inventory__item"></div>
 							<div class="inventory__item"></div>
+							<div class="inventory__item large"></div>
 							<div class="inventory__item"></div>
 							<div class="inventory__item"></div>
 							<div class="inventory__item"></div>
 							<div class="inventory__item"></div>
-							<div class="inventory__item"></div>
-						</div>
-						<div class="inventory__scroll scroll">
-							<div class="scroll__track"></div>
-							<div class="scroll__thumb"></div>
 						</div>
 					</div>
 					<div class="inventory__asside">
@@ -142,10 +142,10 @@
 								<p class="card__title">Bullet</p>
 								<p class="card__description">No gun can shot without bullet, right? Applicable to any weapon</p>
 								<div class="card__actions">
-									<div class="card__action">
+									<div class="card__action error">
 										<p class="card__action-text">Drop</p>
 									</div>
-									<div class="card__action">
+									<div class="card__action success">
 										<p class="card__action-text">Apply</p>
 									</div>
 								</div>

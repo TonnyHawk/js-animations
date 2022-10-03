@@ -4,10 +4,15 @@
 
 body {
 	font-family: "Inter", sans-serif;
+	overflow-y: auto;
 }
 
 * {
 	box-sizing: border-box;
+}
+
+canvas {
+	display: none;
 }
 
 @import "./blocks/popup-screen.scss";

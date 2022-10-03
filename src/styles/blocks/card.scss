@@ -1,0 +1,130 @@
+.card {
+	border-radius: 10px;
+	// background: #f2f2f2;
+	background: #ededed;
+	font-family: Inter;
+	overflow: hidden;
+	// .card__head
+
+	&__head {
+		height: 312px;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	// .card__head-background
+
+	&__head-background {
+		background: #d69b24;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		z-index: 1;
+	}
+
+	// .card__head-icon-effect
+
+	&__head-icon-effect {
+		position: absolute;
+		z-index: 2;
+		background: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.2) 28.12%);
+		box-shadow: 0px 4px 68px 77px rgba(255, 255, 255, 0.25);
+		width: 94px;
+		height: 94px;
+		border-radius: 100%;
+	}
+
+	// .card__head-icon-image
+
+	&__head-icon-image {
+		width: 145px;
+		height: 145px;
+		position: relative;
+		z-index: 3;
+	}
+
+	// .card__body
+
+	&__body {
+		padding: 30px 24px;
+	}
+
+	// .card__title
+
+	&__title {
+		font-family: "Inter";
+		font-style: normal;
+		font-weight: 700;
+		font-size: 32px;
+		line-height: 39px;
+		color: $dark-violet;
+		margin-bottom: 13px;
+	}
+
+	// .card__description
+
+	&__description {
+		font-family: "Inter";
+		font-style: normal;
+		font-weight: 400;
+		font-size: 17px;
+		line-height: 143.02%;
+		color: $dark-violet;
+	}
+
+	// .card__actions
+
+	&__actions {
+		margin-top: 50px;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		gap: 20px;
+	}
+
+	// .card__action
+
+	&__action {
+		display: block;
+		padding: 17px 20px;
+		text-align: center;
+		border-radius: 10px;
+		cursor: pointer;
+		transition: 0.45s background;
+		flex: 1;
+
+		&.error {
+			background: $error;
+			&:hover {
+				background: #f04747;
+			}
+			// &:active {
+			// 	outline: 3px solid #d13c3c;
+			// }
+		}
+		&.success {
+			background: $success-green-1;
+			&:hover {
+				background-color: #47dd56;
+			}
+			// &:active {
+			// 	outline: 3px solid #23b231;
+			// }
+		}
+	}
+
+	// .card__action-text
+
+	&__action-text {
+		font-family: "Inter";
+		font-style: normal;
+		font-weight: 900;
+		font-size: 18px;
+		line-height: 22px;
+		color: white;
+	}
+}
