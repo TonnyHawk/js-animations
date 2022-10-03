@@ -11,16 +11,18 @@
 
 	&__nav {
 		display: flex;
+		gap: 15px;
+		align-items: flex-end;
 	}
 
 	// .inventory__nav-item
 
 	&__nav-item {
-		background: #ffffff;
+		background: #e7e7e7;
 		border-radius: 10px 10px 0px 0px;
 		display: flex;
-		width: 127px;
-		height: 90px;
+		height: 80px;
+		width: 110px;
 		flex-direction: column;
 		align-items: center;
 		padding-top: 18px;
@@ -29,19 +31,36 @@
 		padding-bottom: 10px;
 		flex: 0 auto;
 		cursor: pointer;
+
+		&.is-active {
+			width: 127px;
+			height: 90px;
+			background: #ffffff;
+			.inventory {
+				&__nav-item-icon {
+					margin-bottom: 10px;
+				}
+				&__nav-item-image {
+					width: 35px;
+				}
+				&__nav-item-title {
+					font-size: 15px;
+				}
+			}
+		}
 	}
 
 	// .inventory__nav-item-icon
 
 	&__nav-item-icon {
-		margin-bottom: 10px;
+		margin-bottom: 5px;
 		width: max-content;
 	}
 
 	// .inventory__nav-item-image
 
 	&__nav-item-image {
-		width: 35px;
+		width: 30px;
 	}
 
 	// .inventory__nav-item-title
@@ -50,7 +69,7 @@
 		font-family: "Inter";
 		font-style: normal;
 		font-weight: 600;
-		font-size: 15px;
+		font-size: 12px;
 		line-height: 18px;
 
 		color: $dark-violet;
@@ -158,7 +177,6 @@
 		position: relative;
 		width: 145px;
 		height: 145px;
-		// background: #ededed;
 		background: #f2f2f2;
 		border-radius: 10px;
 		display: flex;
@@ -224,4 +242,12 @@
 
 	&__item-card {
 	}
+
+	// .inventory__progress-box
+
+	&__progress-box {
+		margin-top: 35px;
+	}
 }
+
+@import "./tab/ammo.scss";

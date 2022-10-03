@@ -1,0 +1,82 @@
+.inventory_tab_ammo {
+	.inventory {
+		// .inventory__items
+
+		&__items {
+			height: 317px;
+		}
+
+		// .inventory__item
+
+		&__item {
+			flex: 0 auto;
+			position: relative;
+			width: 145px;
+			height: 145px;
+			background: #f2f2f2;
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: 0.5s;
+			&.available {
+				cursor: pointer;
+				&:hover {
+					background-color: $light-blue;
+				}
+			}
+			&.is-active {
+				background-color: $light-blue;
+			}
+			&.large {
+				width: 308px;
+			}
+		}
+
+		// .inventory__item-image
+
+		&__item-image {
+			width: 85px;
+			position: absolute;
+		}
+
+		// .inventory__item-counter
+
+		&__item-counter {
+			position: absolute;
+			right: 5px;
+			bottom: 5px;
+			font-family: "Inter";
+			font-style: normal;
+			font-weight: 700;
+			font-size: 15px;
+			line-height: 18px;
+
+			color: #f5f1f1;
+			background: #290e74;
+			border-radius: 20px;
+			padding: 0 5px;
+		}
+
+		// .inventory__scroll
+
+		&__scroll {
+			height: 100%;
+			width: 12px;
+			position: absolute;
+			top: 0;
+			right: calc(-20px - 12px);
+		}
+
+		// .inventory__asside
+
+		&__asside {
+			max-width: 358px;
+		}
+
+		// .inventory__item-card
+
+		&__item-card {
+		}
+	}
+}

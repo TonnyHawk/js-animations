@@ -1,0 +1,61 @@
+.progress-box {
+	width: 100%;
+	padding: 24px 32px;
+	background-color: $gray-1;
+	border-radius: 10px;
+	// .progress-box__item
+
+	&__item {
+		margin-bottom: 20px;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	// .progress-box__label-line
+
+	&__label-line {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	// .progress-box__indicator-name
+
+	&__indicator-name {
+		text-transform: capitalize;
+	}
+
+	&__indicator-name,
+	&__indicator-value {
+		font-family: "Inter";
+		font-style: normal;
+		font-weight: 600;
+		font-size: 14px;
+		line-height: 17px;
+		/* identical to box height */
+
+		color: $dark-violet;
+	}
+
+	// .progress-box__bar
+
+	&__bar {
+		margin-top: 10px;
+		border-radius: 7px;
+		overflow: hidden;
+	}
+
+	// .progress-box__background-bar
+
+	&__background-bar {
+		background-color: $pink;
+	}
+
+	// .progress-box__main-bar
+
+	&__main-bar {
+		height: 30px;
+		background: $black;
+		width: 70%;
+	}
+}
