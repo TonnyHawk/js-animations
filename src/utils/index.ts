@@ -23,3 +23,16 @@ export function checkColision(firstObj: GameObject, secondObj: GameObject): bool
 		return true;
 	else return false;
 }
+
+export function isUIElementExists(elSelector: string) {
+	return document.querySelector(elSelector);
+}
+
+export function waitForUIElementToRender(elSelector: string, callback: VoidFunction) {
+	const timer = setInterval(function () {
+		if (document.querySelector(elSelector) !== null) {
+			clearInterval(timer);
+			callback();
+		}
+	}, 300);
+}
