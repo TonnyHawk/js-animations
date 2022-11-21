@@ -13,3 +13,9 @@ yarn build
 ```
 
 to bundle your application
+
+# Useful Links
+
+-   Icons - https://www.flaticon.com/
+-   Canvas text manipulations - https://fjolt.com/article/html-canvas-text
+-   Intro to game dev js - https://www.youtube.com/watch?v=3EMxBkqC4z0
