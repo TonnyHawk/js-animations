@@ -3,7 +3,7 @@ import Player from "./basic/Player";
 import PopupScreen from "./PopupScreen";
 import GameObject from "./basic/GameObject";
 import Indicator from "./indicators/Indicator";
-import { AnimationFrame } from "../types";
+import { AnimationFrame } from "../types/index";
 import BulletItem from "./inventory/items/BulletItem";
 import InventoryItem from "./inventory/items/InventoryItem";
 import "../../src/styles/blocks/inventory/inventory";
