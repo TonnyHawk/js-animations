@@ -1,4 +1,4 @@
-import { waitForUIElementToRender } from "../../../utils";
+import { waitForUIElementToRender } from "../../../utils/index";
 
 waitForUIElementToRender("#inventory-screen", function () {
 	const tabs = Array.from(document.getElementsByClassName("inventory__nav-item")) as HTMLElement[];
