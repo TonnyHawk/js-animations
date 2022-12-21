@@ -1,5 +1,5 @@
-import { moveVector, coordinate } from "../../types";
-import { getTimestamp } from "../../utils";
+import { moveVector, coordinate } from "../../types/index";
+import { getTimestamp } from "../../utils/index";
 import ActionRangeManager from "../addones/ActionRangeManager";
 import Game from "../Game";
 import Gun from "./Gun";

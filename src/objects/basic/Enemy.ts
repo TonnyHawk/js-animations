@@ -1,4 +1,4 @@
-import { checkColision } from "../../utils";
+import { checkColision } from "../../utils/index";
 import Gun from "./Gun";
 import Person from "./Person";
 import Game from "../Game";

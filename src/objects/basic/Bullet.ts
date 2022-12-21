@@ -1,7 +1,7 @@
 import GameObject from "./GameObject";
 import Person from "./Person";
-import { coordinate } from "../../types";
-import { checkColision } from "../../utils";
+import { coordinate } from "../../types/index";
+import { checkColision } from "../../utils/index";
 import Game from "../Game";
 
 export default class Bullet extends GameObject {

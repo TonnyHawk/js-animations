@@ -1,7 +1,7 @@
-import { getTimestamp } from "../../utils";
+import { getTimestamp } from "../../utils/index";
 import Game from "../Game";
 import Bullet from "./Bullet";
-import { AnimationFrame } from "../../types";
+import { AnimationFrame } from "../../types/index";
 import Person from "./Person";
 import GunIndicator from "../indicators/GunIndicator";
 

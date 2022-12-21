@@ -1,4 +1,4 @@
-import { coordinate } from "../../types";
+import { coordinate } from "../../types/index";
 import Game from "../Game";
 import GameObject from "../basic/GameObject";
 import Person from "../basic/Person";

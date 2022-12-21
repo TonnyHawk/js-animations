@@ -1,4 +1,4 @@
-import { getModulus } from "../../utils";
+import { getModulus } from "../../utils/index";
 import Game from "../Game";
 import GameObject from "./GameObject";
 
