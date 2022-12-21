@@ -13,18 +13,6 @@
 	z-index: 11;
 	overflow-y: auto;
 
-	// .popup-screen__background-layer
-	&__background-layer {
-		background: rgba(128, 128, 128, 0.56);
-		position: fixed;
-		width: 100%;
-		min-height: 100vh;
-		height: 850px;
-		top: 0;
-		left: 0;
-		z-index: 1;
-	}
-
 	// .popup-screen__inner
 
 	&__inner {
@@ -46,5 +34,10 @@
 		animation: fade-in;
 		animation-fill-mode: forwards;
 		animation-duration: 0.4s;
+	}
+
+	// custom versions of popup screen
+	&#inventory-screen {
+		background-color: rgba(128, 128, 128, 0.56);
 	}
 }
