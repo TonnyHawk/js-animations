@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Inventory from "../objects/inventory/Inventory";
 import InventoryItem from "../objects/inventory/items/InventoryItem";
 import { generateKey } from "../utils/index";
 
-const InventoryComponent = ({ isActive, items }: { isActive: boolean; items: InventoryItem[] }) => {
+const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; inventory: Inventory }) => {
+	const { items } = inventory;
 	const [currentTab, setCurrentTab] = useState("");
 	// placeholder for the case when there are no elements in the inventory
 	let initialActiveElement = {
@@ -152,7 +154,7 @@ const InventoryComponent = ({ isActive, items }: { isActive: boolean; items: Inv
 							</div>
 							<p className="inventory__nav-item-title">General</p>
 						</div>
-						<div
+						{/* <div
 							className={`inventory__nav-item ${currentTab === "inventory_tab_ammo" ? "is-active" : ""}`}
 							onClick={() => setCurrentTab("inventory_tab_ammo")}
 						>
@@ -160,7 +162,7 @@ const InventoryComponent = ({ isActive, items }: { isActive: boolean; items: Inv
 								<img src="img/inventory/magazine.png" alt="" className="inventory__nav-item-image" />
 							</div>
 							<p className="inventory__nav-item-title">Ammunition</p>
-						</div>
+						</div> */}
 					</div>
 				</div>
 				<div className="inventory__body">{tabBody}</div>
