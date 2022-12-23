@@ -11,6 +11,7 @@ export default class BulletItem extends InventoryItem {
 			image: this.image.src,
 			text: "No gun can shot without bullet, right? Applicable to any weapon",
 			tag: ["ammo"],
+			isLarge: false,
 		};
 	}
 }

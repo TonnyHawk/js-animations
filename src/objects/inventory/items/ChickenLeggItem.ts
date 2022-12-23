@@ -1,3 +1,4 @@
+import Player from "../../basic/Player";
 import Game from "../../Game";
 import InventoryItem from "./InventoryItem";
 
@@ -11,6 +12,17 @@ export default class ChickenLeggItem extends InventoryItem {
 			image: this.image.src,
 			text: "MMMhmhm juccy legg to feel great!",
 			tag: ["food"],
+			isLarge: true,
+		};
+		this.effect = (owner: Player) => {
+			const effectAmount = 20;
+			// apply to the owner
+			const availableToRestore = owner.hp.full - owner.hp.available;
+			if (availableToRestore < effectAmount) {
+				owner.hp.available += availableToRestore;
+			} else {
+				owner.hp.available += effectAmount;
+			}
 		};
 	}
 }
