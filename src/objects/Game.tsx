@@ -65,11 +65,12 @@ export default class Game {
 		this.deleteMarkedObjects();
 		if (this.screen !== null && this.canvasElement !== null) {
 			this.screen.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+			// drawing inventory on the game board
+			this.items.forEach((item: InventoryItem) => item.draw());
 			// drawing game objects
 			this.objects.forEach((gameObject: GameObject) => gameObject.move());
 			// drawing indicators
 			this.indicators.forEach((indicator: Indicator) => indicator.draw());
-			this.items.forEach((item: InventoryItem) => item.draw());
 
 			if (this.hintText != null) {
 				this.screen.textAlign = "center";
