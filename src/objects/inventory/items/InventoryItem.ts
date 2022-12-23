@@ -4,6 +4,7 @@ import Game from "../../Game";
 
 export default class InventoryItem extends GameObject {
 	image: HTMLImageElement;
+	// description for inventary
 	description: {
 		name: string;
 		amount: number;
