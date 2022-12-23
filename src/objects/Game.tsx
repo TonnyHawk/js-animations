@@ -7,6 +7,9 @@ import { AnimationFrame } from "../types/index";
 import BulletItem from "./inventory/items/BulletItem";
 import InventoryItem from "./inventory/items/InventoryItem";
 import "../styles/blocks/inventory/inventory";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import InventoryComponent from "../components/Inventory";
 
 export default class Game {
 	animation: AnimationFrame;
@@ -19,6 +22,7 @@ export default class Game {
 	player: Player;
 	hintText: string;
 	items: InventoryItem[];
+	inventoryMenu;
 	constructor() {
 		this.hintText = "Hello";
 		this.animation = null;
@@ -39,6 +43,13 @@ export default class Game {
 		this.items = [];
 
 		this.player = new Player(this);
+
+		this.inventoryMenu = {
+			element: ReactDOM.createRoot(document.getElementById("inventory-menu") as HTMLElement),
+			render: (isActive: boolean) => {
+				this.inventoryMenu.element.render(<InventoryComponent isActive={isActive} />);
+			},
+		};
 	}
 
 	start() {
