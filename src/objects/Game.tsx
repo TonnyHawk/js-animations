@@ -47,7 +47,7 @@ export default class Game {
 		this.inventoryMenu = {
 			element: ReactDOM.createRoot(document.getElementById("inventory-menu") as HTMLElement),
 			render: (isActive: boolean) => {
-				this.inventoryMenu.element.render(<InventoryComponent isActive={isActive} />);
+				this.inventoryMenu.element.render(<InventoryComponent isActive={isActive} items={this.player.inventory.items} />);
 			},
 		};
 	}
