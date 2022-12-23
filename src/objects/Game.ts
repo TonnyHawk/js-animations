@@ -45,7 +45,7 @@ export default class Game {
 		this.objects.push(this.player);
 		// this.objects.push(new Enemy(this, null, this.player));
 		new KeyDetector(this, this.player);
-		this.items.push(new BulletItem(this));
+		this.items.push(new BulletItem(this, 10, 150));
 		this.draw();
 	}
 
