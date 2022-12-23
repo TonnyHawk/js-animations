@@ -14,6 +14,7 @@ export default class GameObject {
 	markedForDeletion: boolean;
 	isDamagable: boolean;
 	game: Game;
+	isCollactable: boolean;
 	hp: {
 		full: number;
 		available: number;
@@ -36,6 +37,7 @@ export default class GameObject {
 	gun?: Gun;
 	indicators: Indicator[];
 	constructor(game: Game) {
+		this.isCollactable = false;
 		this.id = Date.now() * Math.floor(Math.random() * 100);
 		this.moveVectorName = "up";
 		this.position = {
