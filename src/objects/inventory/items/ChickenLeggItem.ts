@@ -10,6 +10,7 @@ export default class ChickenLeggItem extends InventoryItem {
 			amount: 1,
 			image: this.image.src,
 			text: "MMMhmhm juccy legg to feel great!",
+			tag: ["food"],
 		};
 	}
 }
