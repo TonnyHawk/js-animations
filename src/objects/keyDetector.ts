@@ -70,7 +70,7 @@ export default class keyDetector {
 					console.log("target reseted");
 					break;
 				case "i":
-					player.inventory.show();
+					player.inventory.toggle();
 					break;
 				case "e":
 					console.log(player.around.objects);
