@@ -16,7 +16,7 @@ export default class Inventory {
 	addItem(item: InventoryItem) {
 		this.items.push(item);
 	}
-	toggle() {
+	toggleVisibility() {
 		this.isVisible = !this.isVisible;
 		this.game.inventoryMenu.render(this.isVisible);
 	}
