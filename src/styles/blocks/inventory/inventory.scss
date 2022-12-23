@@ -85,6 +85,12 @@
 		display: flex;
 	}
 
+	&__body-is-empty-message {
+		font-size: 32px;
+		font-weight: bold;
+		color: rgba(0, 0, 0, 0.35);
+	}
+
 	// .inventory__main
 
 	&__main {
@@ -236,6 +242,7 @@
 
 	&__asside {
 		max-width: 358px;
+		width: 100%;
 	}
 
 	// .inventory__item-card
