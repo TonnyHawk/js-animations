@@ -1,83 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+import React from "react";
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-		<title>Document</title>
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-			}
-
-			#assets {
-				display: none;
-			}
-
-			#screen {
-				box-sizing: border-box;
-			}
-		</style>
-	</head>
-
-	<body>
-		<div id="assets">
-			<div id="bullet"></div>
-			<img src="img/player/player-direction-arrow.svg" alt="" id="player-direction-arrow" />
-			<img src="img/inventory/bullets.png" alt="" id="inventory-item-bullets" class="inventory-item" />
-			<img src="img/inventory/random.png" alt="" id="inventory-item-random" class="inventory-item" />
-		</div>
-
-		<!-- <div id="cube">
-        <img src="img/player/player-direction-arrow.svg" alt="">
-    </div> -->
-
-		<canvas id="screen" width="500" height="400"></canvas>
-
-		<div class="gun" id="gun">
-			<!-- <div class="gun__head">
-				<p class="gun__title">Big machine gun from ww2</p>
-			</div> -->
-			<div class="gun__body">
-				<div class="gun__icon">
-					<div class="gun__icon-background"></div>
-					<img class="gun__icon-image" src="img/icons/gun.png" />
-				</div>
-				<div class="gun__info">
-					<div class="gun__info-property">
-						<p class="gun__info-property-name">Available</p>
-						<p class="gun__info-property-value" id="gun-prop-available">3</p>
-					</div>
-					<div class="gun__info-property">
-						<p class="gun__info-property-name">Full</p>
-						<p class="gun__info-property-value" id="gun-prop-full">173</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="popup-screen" id="pause-screen" style="display: none">
-			<div class="popup-screen__background-layer"></div>
-			<div class="popup-screen__inner popup-screen__game-menu game-menu">
-				<p class="game-menu__title" id="popup-screen-title">Game Paused</p>
-				<div class="game-menu__menu">
-					<div class="game-menu__menu-item" id="resume-btn">Resume</div>
-					<!-- <div class="popup-screen__menu-item" id="restart-btn">Restart</div> -->
-				</div>
-			</div>
-		</div>
-
-		<div id="root"></div>
-
-		<!-- <div class="popup-screen is-active" id="inventory-screen">
+const InventoryComponent = (props) => {
+	return (
+		<div class="popup-screen is-active" id="inventory-screen">
 			<div class="popup-screen__inner popup-screen__inventory inventory inventory_tab_ammo">
 				<div class="inventory__head">
 					<div class="inventory__nav">
@@ -100,16 +25,13 @@
 						<div class="inventory__search">
 							<div class="inventory__search-icon">
 								<svg
-									class="inventory__search-icon-image"
+									class="inventory__search-icon-image bi bi-search"
 									xmlns="http://www.w3.org/2000/svg"
 									width="16"
 									height="16"
-									class="bi bi-search"
 									viewBox="0 0 16 16"
 								>
-									<path
-										d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-									/>
+									<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
 								</svg>
 							</div>
 							<form action="" class="inventory__search-form">
@@ -193,6 +115,8 @@
 					</div>
 				</div>
 			</div>
-		</div> -->
-	</body>
-</html>
+		</div>
+	);
+};
+
+export default InventoryComponent;
