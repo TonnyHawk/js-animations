@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
-const InventoryComponent = (props) => {
+const InventoryComponent = ({ isActive }) => {
 	return (
-		<div class="popup-screen is-active" id="inventory-screen">
+		<div class={`popup-screen ${isActive ? "is-active" : ""}`} id="inventory-screen">
 			<div class="popup-screen__inner popup-screen__inventory inventory inventory_tab_ammo">
 				<div class="inventory__head">
 					<div class="inventory__nav">

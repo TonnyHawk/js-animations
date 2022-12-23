@@ -8,4 +8,4 @@ const game = new Game();
 game.start();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Inventory />);
+root.render(<Inventory isActive={false} />);

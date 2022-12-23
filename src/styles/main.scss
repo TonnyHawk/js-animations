@@ -11,10 +11,6 @@ body {
 	box-sizing: border-box;
 }
 
-canvas {
-	display: none;
-}
-
 @import "./blocks/popup-screen.scss";
 @import "./blocks/game-menu.scss";
 @import "./blocks/gun.scss";
