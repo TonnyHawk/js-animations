@@ -7,5 +7,5 @@ import Inventory from "./components/Inventory.jsx";
 const game = new Game();
 game.start();
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Inventory isActive={false} />);
+const inventoryMenu = ReactDOM.createRoot(document.getElementById("inventory-menu"));
+inventoryMenu.render(<Inventory isActive={false} />);

@@ -6,7 +6,7 @@ import Indicator from "./indicators/Indicator";
 import { AnimationFrame } from "../types/index";
 import BulletItem from "./inventory/items/BulletItem";
 import InventoryItem from "./inventory/items/InventoryItem";
-import "../../src/styles/blocks/inventory/inventory";
+import "../styles/blocks/inventory/inventory";
 
 export default class Game {
 	animation: AnimationFrame;
