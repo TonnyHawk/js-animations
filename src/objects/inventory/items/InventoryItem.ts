@@ -10,6 +10,7 @@ export default class InventoryItem extends GameObject {
 		amount: number;
 		image: string;
 		text: string;
+		tag: string[];
 	};
 	constructor(game: Game, left: number, top: number) {
 		super(game);
@@ -24,6 +25,7 @@ export default class InventoryItem extends GameObject {
 			amount: 1,
 			image: this.image.src,
 			text: "No description",
+			tag: [],
 		};
 	}
 
