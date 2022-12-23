@@ -36,3 +36,7 @@ export function waitForUIElementToRender(elSelector: string, callback: VoidFunct
 		}
 	}, 300);
 }
+
+export const generateKey = (pre: string) => {
+	return `${pre}_${new Date().getTime()}`;
+};
