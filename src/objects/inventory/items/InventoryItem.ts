@@ -8,10 +8,17 @@ export default class InventoryItem extends GameObject {
 	description: {
 		name: string;
 		amount: number;
+		// link to the image
 		image: string;
 		text: string;
+		// for inventory to decide in which tab will this one go
 		tag: string[];
+		// is the image large or pretty much compact?
+		isLarge: boolean;
 	};
+	effect: (owner: Player) => void;
+	use: () => boolean;
+	executeEffect: (owner: Player) => boolean;
 	constructor(game: Game, left: number, top: number) {
 		super(game);
 		this.game = game;
@@ -26,6 +33,23 @@ export default class InventoryItem extends GameObject {
 			image: this.image.src,
 			text: "No description",
 			tag: [],
+			isLarge: false,
+		};
+		this.effect = () => {};
+		this.use = () => {
+			this.description.amount -= 1;
+			if (this.description.amount === 0) {
+				return false;
+			}
+			return true;
+		};
+		this.executeEffect = (owner: Player) => {
+			if (this.description.amount > 0) {
+				this.effect(owner);
+				// decrease self ammount
+				return this.use();
+			}
+			return false;
 		};
 	}
 
