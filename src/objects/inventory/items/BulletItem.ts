@@ -10,6 +10,7 @@ export default class BulletItem extends InventoryItem {
 			amount: 23,
 			image: this.image.src,
 			text: "No gun can shot without bullet, right? Applicable to any weapon",
+			tag: ["ammo"],
 		};
 	}
 }
