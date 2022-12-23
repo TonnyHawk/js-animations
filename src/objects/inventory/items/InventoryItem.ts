@@ -6,13 +6,13 @@ export default class InventoryItem extends GameObject {
 	itemName: string;
 	amount: number;
 	image: HTMLImageElement;
-	constructor(game: Game) {
+	constructor(game: Game, top: number, left: number) {
 		super(game);
 		this.game = game;
 		this.itemName = "Random item";
 		this.amount = 1;
 		this.image = document.getElementById("inventory-item-random") as HTMLImageElement;
-		this.setPosition(200, 200);
+		this.setPosition(left, top);
 		this.setSize(30, 30);
 		this.game.objects.push(this);
 	}
