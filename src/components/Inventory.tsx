@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Inventory from "../objects/inventory/Inventory";
-import InventoryItem from "../objects/inventory/items/InventoryItem";
-import { generateKey } from "../utils/index";
 
 const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; inventory: Inventory }) => {
 	const { items } = inventory;
@@ -20,21 +18,34 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 	if (!activeItem) {
 		tabBody = <p className="inventory__body-is-empty-message">No items here yet...</p>;
 	} else {
-		// shaping inventory items in some html
+		// check if item that is currently 'active' still presents in the inventory
+		const checkTheActiveItem = () => {
+			const index = inventory.items.findIndex((el) => el.id === activeItem.id);
+			if (index < 0) setActiveItem(inventory.items[0]);
+		};
+		// preparing items grid
+		// shaping inventory items into html
 		const itemsToRender = items.map((el) => {
 			return (
-				<div className={`inventory__item available ${el.id === activeItem.id ? "is-active" : ""}`} key={el.id} onClick={() => setActiveItem(el)}>
+				<div
+					className={`inventory__item available ${el.id === activeItem.id ? "is-active" : ""} ${el.description.isLarge ? "large" : ""}`}
+					key={el.id}
+					onClick={() => setActiveItem(el)}
+				>
 					<img src={el.description.image} alt="" className="inventory__item-image" />
 					<p className="inventory__item-counter">{el.description.amount}</p>
 				</div>
 			);
 		});
-		let itemsNeededToFillTheGrid = 8;
-		if (itemsToRender.length < itemsNeededToFillTheGrid) {
-			let diff = itemsNeededToFillTheGrid - itemsToRender.length;
-			for (let i = 0; i < diff; i++) {
-				itemsToRender.push(<div className="inventory__item"></div>);
-			}
+		// creating free grid sloths if there are not enough items to fill all grid. P.s just for visual effect
+		// 1. define how many items should be in the grid
+		const largeItems = items.filter((item) => item.description.isLarge).length * 2;
+		const theGridSize = 9;
+		// 2. how much is last till the visible grid is full
+		let itemsNeededToFillTheGrid = theGridSize - largeItems;
+		// 3. create free cells if there is a need
+		for (let i = 0; i < itemsNeededToFillTheGrid; i++) {
+			itemsToRender.push(<div className="inventory__item"></div>);
 		}
 
 		// forming side bar with detailed description of an active item
@@ -49,10 +60,22 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 					<p className="card__title">{activeItem.description.name}</p>
 					<p className="card__description">{activeItem.description.text}</p>
 					<div className="card__actions">
-						<div className="card__action error" onClick={() => inventory.dropItem(activeItem)}>
+						<div
+							className="card__action error"
+							onClick={() => {
+								inventory.dropItem(activeItem);
+								checkTheActiveItem();
+							}}
+						>
 							<p className="card__action-text">Drop</p>
 						</div>
-						<div className="card__action success">
+						<div
+							className="card__action success"
+							onClick={() => {
+								inventory.useItem(activeItem);
+								checkTheActiveItem();
+							}}
+						>
 							<p className="card__action-text">Apply</p>
 						</div>
 					</div>
