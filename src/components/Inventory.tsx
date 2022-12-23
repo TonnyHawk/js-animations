@@ -6,30 +6,24 @@ import { generateKey } from "../utils/index";
 const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; inventory: Inventory }) => {
 	const { items } = inventory;
 	const [currentTab, setCurrentTab] = useState("");
-	// placeholder for the case when there are no elements in the inventory
-	let initialActiveElement = {
-		description: {
-			name: "Empty item",
-			amount: 1,
-			image: "",
-			text: "No description",
-		},
-		id: 0,
-	};
-	const [activeElement, setActiveElement] = useState(items.length > 0 ? items[0] : initialActiveElement);
-	// falling back to the first inventory item when there is no active element defined
+	const [activeItem, setActiveItem] = useState(items.length > 0 ? items[0] : null);
+	// falling back to the first inventory item when there is now active element defined
 	useEffect(() => {
-		if (activeElement.id == 0 && items.length > 0) setActiveElement(items[0]);
+		if (!activeItem && items.length > 0) {
+			setActiveItem(items[0]);
+		} else if (activeItem && items.length === 0) {
+			setActiveItem(null);
+		}
 	});
 
 	let tabBody = null;
-	if (items.length === 0) {
+	if (!activeItem) {
 		tabBody = <p className="inventory__body-is-empty-message">No items here yet...</p>;
 	} else {
 		// shaping inventory items in some html
 		const itemsToRender = items.map((el) => {
 			return (
-				<div className={`inventory__item available ${el.id === activeElement.id ? "is-active" : ""}`} key={el.id} onClick={() => setActiveElement(el)}>
+				<div className={`inventory__item available ${el.id === activeItem.id ? "is-active" : ""}`} key={el.id} onClick={() => setActiveItem(el)}>
 					<img src={el.description.image} alt="" className="inventory__item-image" />
 					<p className="inventory__item-counter">{el.description.amount}</p>
 				</div>
@@ -49,13 +43,13 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 				<div className="card__head">
 					<div className="card__head-background"></div>
 					<div className="card__head-icon-effect"></div>
-					<img src={activeElement.description.image} alt="" className="card__head-icon-image" />
+					<img src={activeItem.description.image} alt="" className="card__head-icon-image" />
 				</div>
 				<div className="card__body">
-					<p className="card__title">{activeElement.description.name}</p>
-					<p className="card__description">{activeElement.description.text}</p>
+					<p className="card__title">{activeItem.description.name}</p>
+					<p className="card__description">{activeItem.description.text}</p>
 					<div className="card__actions">
-						<div className="card__action error">
+						<div className="card__action error" onClick={() => inventory.dropItem(activeItem)}>
 							<p className="card__action-text">Drop</p>
 						</div>
 						<div className="card__action success">
