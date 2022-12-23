@@ -10,6 +10,7 @@ import "../styles/blocks/inventory/inventory";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import InventoryComponent from "../components/Inventory";
+import ChickenLeggItem from "./inventory/items/ChickenLeggItem";
 
 export default class Game {
 	animation: AnimationFrame;
@@ -56,7 +57,8 @@ export default class Game {
 		this.objects.push(this.player);
 		// this.objects.push(new Enemy(this, null, this.player));
 		new KeyDetector(this, this.player);
-		this.items.push(new BulletItem(this, 10, 150));
+		this.items.push(new BulletItem(this, 200, 300));
+		this.items.push(new ChickenLeggItem(this, 300, 300));
 		this.draw();
 	}
 
