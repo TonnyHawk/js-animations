@@ -51,4 +51,16 @@ export default class Inventory {
 		this.isVisible = !this.isVisible;
 		this.game.inventoryMenu.render(this.isVisible);
 	}
+	hide() {
+		if (this.isVisible) {
+			this.isVisible = false;
+			this.game.inventoryMenu.render(false);
+		}
+	}
+	show() {
+		if (!this.isVisible) {
+			this.isVisible = true;
+			this.game.inventoryMenu.render(true);
+		}
+	}
 }
