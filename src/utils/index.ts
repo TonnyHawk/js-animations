@@ -38,5 +38,5 @@ export function waitForUIElementToRender(elSelector: string, callback: VoidFunct
 }
 
 export const generateKey = (pre: string) => {
-	return `${pre}_${new Date().getTime()}`;
+	return `${pre}_${Math.floor(Math.random() * new Date().getTime())}`;
 };
