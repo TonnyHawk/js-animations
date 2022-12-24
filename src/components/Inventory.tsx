@@ -5,6 +5,7 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 	let { items } = inventory;
 	const [currentTab, setCurrentTab] = useState("");
 	const [activeItem, setActiveItem] = useState(items.length > 0 ? items[0] : null);
+	const [tabItems, setTabItems] = useState(items);
 	// falling back to the first inventory item when there is now active element defined
 	useEffect(() => {
 		if (!activeItem && items.length > 0) {
@@ -13,6 +14,12 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 			setActiveItem(null);
 		}
 	});
+
+	const tabSearch = (e: any) => {
+		let stringToSearch = e.target.value;
+		let filteredItems = items.filter((el) => el.description.name.toLowerCase().includes(stringToSearch.toLowerCase()));
+		setTabItems(filteredItems);
+	};
 
 	let tabBody = null;
 	if (!activeItem) {
@@ -25,7 +32,7 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 		};
 		// preparing items grid
 		// shaping inventory items into html
-		const itemsToRender = items.map((el) => {
+		const itemsToRender = tabItems.map((el) => {
 			return (
 				<div
 					className={
@@ -43,8 +50,8 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 		});
 		// creating free grid sloths if there are not enough items to fill all grid. P.s just for visual effect
 		const theGridSize = 9;
-		if (items.length < theGridSize) {
-			let itemsNeededToFillTheGrid = theGridSize - items.length;
+		if (tabItems.length < theGridSize) {
+			let itemsNeededToFillTheGrid = theGridSize - tabItems.length;
 			for (let i = 0; i < itemsNeededToFillTheGrid; i++) {
 				itemsToRender.push(<div className="inventory__item"></div>);
 			}
@@ -100,7 +107,7 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 							</svg>
 						</div>
 						<form action="" className="inventory__search-form">
-							<input type="text" name="" id="" className="inventory__search-text-input" placeholder="Search..." />
+							<input type="text" name="" id="" className="inventory__search-text-input" placeholder="Search..." onChange={tabSearch} />
 						</form>
 					</div>
 					<div className="inventory__scroll scroll">
