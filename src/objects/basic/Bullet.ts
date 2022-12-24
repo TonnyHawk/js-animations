@@ -16,7 +16,6 @@ export default class Bullet extends GameObject {
 	constructor(game: Game, player: Person) {
 		super(game);
 
-		this.id = Date.now() * Math.floor(Math.random() * 100);
 		this.player = player;
 
 		this.flyRange = 200;

@@ -1,3 +1,4 @@
+import { generateKey } from "../../../utils/index";
 import GameObject from "../../basic/GameObject";
 import Player from "../../basic/Player";
 import Game from "../../Game";
@@ -35,6 +36,7 @@ export default class InventoryItem extends GameObject {
 			tag: [],
 			isLarge: false,
 		};
+		this.id = generateKey("inv");
 		this.effect = () => {};
 		this.use = () => {
 			this.description.amount -= 1;
