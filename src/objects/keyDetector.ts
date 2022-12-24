@@ -53,8 +53,12 @@ export default class keyDetector {
 					clearTimeout(keyUpHandlerDelay);
 					break;
 				case "Escape":
-					if (game.isAnimationRunning) game.pause();
-					else game.resume();
+					if (player.inventory.isVisible) {
+						player.inventory.hide();
+					} else {
+						if (game.isAnimationRunning) game.pause();
+						else game.resume();
+					}
 					break;
 				case "Space":
 					player.shoot();
@@ -70,7 +74,7 @@ export default class keyDetector {
 					console.log("target reseted");
 					break;
 				case "i":
-					player.inventory.toggleVisibility();
+					player.inventory.show();
 					break;
 				case "e":
 					console.log(player.around.objects);
