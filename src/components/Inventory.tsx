@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Inventory from "../objects/inventory/Inventory";
 
 const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; inventory: Inventory }) => {
-	const { items } = inventory;
+	let { items } = inventory;
 	const [currentTab, setCurrentTab] = useState("");
 	const [activeItem, setActiveItem] = useState(items.length > 0 ? items[0] : null);
 	// falling back to the first inventory item when there is now active element defined
@@ -28,7 +28,11 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 		const itemsToRender = items.map((el) => {
 			return (
 				<div
-					className={`inventory__item available ${el.id === activeItem.id ? "is-active" : ""} ${el.description.isLarge ? "large" : ""}`}
+					className={
+						`inventory__item available ${el.id === activeItem.id ? "is-active" : ""} 
+					`
+						// +el.description.isLarge ? "large" : ""
+					}
 					key={el.id}
 					onClick={() => setActiveItem(el)}
 				>
@@ -38,14 +42,12 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 			);
 		});
 		// creating free grid sloths if there are not enough items to fill all grid. P.s just for visual effect
-		// 1. define how many items should be in the grid
-		const largeItems = items.filter((item) => item.description.isLarge).length * 2;
 		const theGridSize = 9;
-		// 2. how much is last till the visible grid is full
-		let itemsNeededToFillTheGrid = theGridSize - largeItems;
-		// 3. create free cells if there is a need
-		for (let i = 0; i < itemsNeededToFillTheGrid; i++) {
-			itemsToRender.push(<div className="inventory__item"></div>);
+		if (items.length < theGridSize) {
+			let itemsNeededToFillTheGrid = theGridSize - items.length;
+			for (let i = 0; i < itemsNeededToFillTheGrid; i++) {
+				itemsToRender.push(<div className="inventory__item"></div>);
+			}
 		}
 
 		// forming side bar with detailed description of an active item
