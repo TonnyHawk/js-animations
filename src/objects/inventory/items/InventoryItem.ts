@@ -65,10 +65,4 @@ export default class InventoryItem extends GameObject {
 			} else console.log("can not find image to draw inventory item called - " + this.description.name);
 		}
 	}
-
-	collect(person: Player) {
-		person.around.remove(this);
-		person.inventory.addItem(this);
-		this.die();
-	}
 }

@@ -143,4 +143,10 @@ export default class Player extends Person {
 	shoot() {
 		this.gun.shot();
 	}
+
+	collect(item: InventoryItem) {
+		this.around.remove(item);
+		this.inventory.addItem(item);
+		item.die();
+	}
 }
