@@ -1,12 +1,12 @@
 import { moveVector, coordinate } from "../../types/index";
-import { getTimestamp } from "../../utils/index";
+import { generateKey, getTimestamp } from "../../utils/index";
 import ActionRangeManager from "../addones/ActionRangeManager";
 import Game from "../Game";
 import Gun from "./Gun";
 import Indicator from "../indicators/Indicator";
 
 export default class GameObject {
-	id: number;
+	id: string;
 	moveVectorName: moveVector;
 	position: coordinate;
 	height: number;
@@ -38,7 +38,7 @@ export default class GameObject {
 	indicators: Indicator[];
 	constructor(game: Game) {
 		this.isCollactable = false;
-		this.id = Date.now() * Math.floor(Math.random() * 100);
+		this.id = generateKey("obj");
 		this.moveVectorName = "up";
 		this.position = {
 			top: 0,
