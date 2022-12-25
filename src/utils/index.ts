@@ -40,3 +40,8 @@ export function waitForUIElementToRender(elSelector: string, callback: VoidFunct
 export const generateKey = (pre: string) => {
 	return `${pre}_${Math.floor(Math.random() * new Date().getTime())}`;
 };
+
+export const makeNaturalNumber = (num: number) => {
+	if (num < 0) return num * -1;
+	else return num;
+};
