@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Inventory from "../objects/inventory/Inventory";
+import { makeNaturalNumber } from "../utils/index";
 
 const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; inventory: Inventory }) => {
 	let { items } = inventory;
@@ -20,7 +21,48 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 		let filteredItems = items.filter((el) => el.description.name.toLowerCase().includes(stringToSearch.toLowerCase()));
 		setTabItems(filteredItems);
 	};
+	const inventoryItemsElement = useRef(null);
+	let [listShiftValue, setListShiftValue] = useState(0);
+	const itemsListDragMouseDown = (e: any) => {
+		e.preventDefault();
+		let startY = e.pageY;
 
+		let eventTarget = e.target;
+		const itemsListParent = eventTarget.closest(".inventory__items");
+		const viewBoxHeight = parseInt(getComputedStyle(itemsListParent).height);
+
+		const itemsListElement = eventTarget.closest(".inventory__items-list");
+		const itemsListElementHeight = parseInt(getComputedStyle(itemsListElement).height);
+		const maximalVisibleListElementHeight = itemsListElementHeight - viewBoxHeight;
+		if (itemsListElement.style.transform === "") {
+			itemsListElement.style.transform = `translateY(${listShiftValue}px)`;
+		}
+		let currentShift = 0;
+
+		document.onmousemove = function (dragEvent) {
+			e.preventDefault();
+			const diff = dragEvent.pageY - startY;
+			let direction = 0;
+			diff > 0 ? (direction = 1) : (direction = -1);
+			const speed = 1;
+			currentShift = diff / speed + listShiftValue;
+			if (currentShift <= 0 && makeNaturalNumber(currentShift) < maximalVisibleListElementHeight) {
+				currentShift = diff / speed + listShiftValue;
+			} else if (currentShift > 0) {
+				currentShift = 0;
+			} else if (makeNaturalNumber(currentShift) >= viewBoxHeight) {
+				currentShift = maximalVisibleListElementHeight * -1;
+			}
+			console.log(currentShift);
+
+			itemsListElement.style.transform = `translateY(${currentShift}px)`;
+		};
+		document.onmouseup = function (e) {
+			setListShiftValue(currentShift);
+			document.onmouseup = null;
+			document.onmousemove = null;
+		};
+	};
 	let tabBody = null;
 	if (!activeItem) {
 		tabBody = <p className="inventory__body-is-empty-message">No items here yet...</p>;
@@ -111,11 +153,15 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 						</form>
 					</div>
 					<div className="inventory__scroll scroll">
+						{/* <div className="scroll__page is-active"></div>
+						<div className="scroll__page"></div>
+						<div className="scroll__page"></div> */}
 						<div className="scroll__track"></div>
 						<div className="scroll__thumb"></div>
 					</div>
-					<div className="inventory__items">
-						{itemsToRender}
+					<div className="inventory__items grabbable" ref={inventoryItemsElement} onMouseDown={(e) => itemsListDragMouseDown(e)}>
+						<div className="inventory__items-list">{itemsToRender}</div>
+
 						{/* <div className="inventory__item available">
 									<img src="img/inventory/chicken-leg.png" alt="" className="inventory__item-image" />
 									<p className="inventory__item-counter">10</p>

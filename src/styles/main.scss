@@ -19,3 +19,13 @@ body {
 @import "./blocks/progress-bar.scss";
 @import "./blocks/progress-box.scss";
 @import "./blocks/inventory/inventory.scss";
+
+.grabbable {
+	cursor: move; /* fallback if grab cursor is unsupported */
+	cursor: grab;
+}
+
+/* (Optional) Apply a "closed-hand" cursor during drag operation. */
+.grabbable:active {
+	cursor: grabbing;
+}
