@@ -9,6 +9,7 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 	const [tabItems, setTabItems] = useState(items);
 	const [activeItem, setActiveItem] = useState(items.length > 0 ? items[0] : null);
 	const [searchString, setSearchString] = useState("");
+	const inventoryItemsElement = useRef(null);
 	// falling back to the first inventory item when there is no active element defined
 	useEffect(() => {
 		if (!activeItem && items.length > 0) {
@@ -32,8 +33,16 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 	useEffect(() => {
 		setTabItems(searchFilter(items));
 	}, [items, searchString]);
+	// scroll items list all the way to the top each time user type something in search field
+	useEffect(() => {
+		if (inventoryItemsElement.current) {
+			let itemsElement = inventoryItemsElement.current as HTMLElement;
+			const itemsList = itemsElement.querySelector(".inventory__items-list") as HTMLElement;
+			itemsList.style.transform = `translateY(0px)`;
+			setListShiftValue(0);
+		}
+	}, [searchString]);
 
-	const inventoryItemsElement = useRef(null);
 	let [listShiftValue, setListShiftValue] = useState(0);
 	const itemsListDragMouseDown = (e: any) => {
 		e.preventDefault();
@@ -69,6 +78,7 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 			itemsListElement.style.transform = `translateY(${currentShift}px)`;
 		};
 		document.onmouseup = function (e) {
+			e.preventDefault();
 			setListShiftValue(currentShift);
 			document.onmouseup = null;
 			document.onmousemove = null;
