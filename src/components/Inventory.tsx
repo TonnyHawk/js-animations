@@ -50,10 +50,9 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 				currentShift = diff / speed + listShiftValue;
 			} else if (currentShift > 0) {
 				currentShift = 0;
-			} else if (makeNaturalNumber(currentShift) >= viewBoxHeight) {
+			} else if (makeNaturalNumber(currentShift) >= maximalVisibleListElementHeight) {
 				currentShift = maximalVisibleListElementHeight * -1;
 			}
-			console.log(currentShift);
 
 			itemsListElement.style.transform = `translateY(${currentShift}px)`;
 		};
