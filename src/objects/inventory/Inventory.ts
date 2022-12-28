@@ -20,6 +20,7 @@ export default class Inventory {
 	dropItem(item: InventoryItem) {
 		this.items = this.items.filter((el) => el.id !== item.id);
 		this.game.inventoryMenu.render(this.isVisible);
+		// rendering item on the game field
 		if (item.description.amount > 0) {
 			// place item in front of the player
 			const { top, left, right, bottom } = this.owner.getCoords();
