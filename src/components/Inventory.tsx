@@ -10,6 +10,7 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 	const [activeItem, setActiveItem] = useState(items.length > 0 ? items[0] : null);
 	const [searchString, setSearchString] = useState("");
 	const inventoryItemsElement = useRef(null);
+	const scrollElement = useRef(null);
 	// falling back to the first inventory item when there is no active element defined
 	useEffect(() => {
 		if (!activeItem && items.length > 0) {
@@ -62,6 +63,7 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 
 		document.onmousemove = function (dragEvent) {
 			e.preventDefault();
+			// moving the list
 			const diff = dragEvent.pageY - startY;
 			let direction = 0;
 			diff > 0 ? (direction = 1) : (direction = -1);
@@ -76,6 +78,19 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 			}
 
 			itemsListElement.style.transform = `translateY(${currentShift}px)`;
+
+			// moving the scroll
+			if (scrollElement.current) {
+				const scrollEl = scrollElement.current as HTMLElement;
+				const scrollHeight = scrollEl.clientHeight;
+				const scrollThumb = scrollEl.querySelector(".scroll__thumb") as HTMLElement;
+				const scrollThumbHeight = scrollThumb.clientHeight;
+				const availableScrollWay = scrollHeight - scrollThumbHeight;
+				// scroll should move only down so in positive direction
+				const thumbShift = makeNaturalNumber((currentShift * availableScrollWay) / maximalVisibleListElementHeight);
+
+				scrollThumb.style.transform = `translateY(${thumbShift}px)`;
+			}
 		};
 		document.onmouseup = function (e) {
 			e.preventDefault();
@@ -182,7 +197,7 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 							/>
 						</form>
 					</div>
-					<div className="inventory__scroll scroll">
+					<div className="inventory__scroll scroll" ref={scrollElement}>
 						{/* <div className="scroll__page is-active"></div>
 						<div className="scroll__page"></div>
 						<div className="scroll__page"></div> */}
