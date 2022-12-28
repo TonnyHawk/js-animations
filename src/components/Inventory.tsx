@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import Inventory from "../objects/inventory/Inventory";
+import InventoryItem from "../objects/inventory/items/InventoryItem";
 import { makeNaturalNumber } from "../utils/index";
 
 const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; inventory: Inventory }) => {
 	let { items } = inventory;
 	const [currentTab, setCurrentTab] = useState("");
-	const [activeItem, setActiveItem] = useState(items.length > 0 ? items[0] : null);
 	const [tabItems, setTabItems] = useState(items);
-	// falling back to the first inventory item when there is now active element defined
+	const [activeItem, setActiveItem] = useState(items.length > 0 ? items[0] : null);
+	const [searchString, setSearchString] = useState("");
+	// falling back to the first inventory item when there is no active element defined
 	useEffect(() => {
 		if (!activeItem && items.length > 0) {
 			setActiveItem(items[0]);
@@ -16,11 +18,21 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 		}
 	});
 
-	const tabSearch = (e: any) => {
-		let stringToSearch = e.target.value;
-		let filteredItems = items.filter((el) => el.description.name.toLowerCase().includes(stringToSearch.toLowerCase()));
-		setTabItems(filteredItems);
+	const searchFilter = (items: InventoryItem[]) => {
+		let filteredItems = items.filter((el) => el.description.name.toLowerCase().includes(searchString.toLowerCase()));
+		if (searchString !== "") return filteredItems;
+		else return items;
 	};
+
+	// clean search field when user closes inventory
+	useEffect(() => {
+		setSearchString("");
+	}, [isActive]);
+	// pass items through the search filter
+	useEffect(() => {
+		setTabItems(searchFilter(items));
+	}, [items, searchString]);
+
 	const inventoryItemsElement = useRef(null);
 	let [listShiftValue, setListShiftValue] = useState(0);
 	const itemsListDragMouseDown = (e: any) => {
@@ -69,7 +81,8 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 		// check if item that is currently 'active' still presents in the inventory
 		const checkTheActiveItem = () => {
 			const index = inventory.items.findIndex((el) => el.id === activeItem.id);
-			if (index < 0) setActiveItem(inventory.items[0]);
+			if (index < 0 && inventory.items.length > 0) setActiveItem(inventory.items[0]);
+			else setActiveItem(null);
 		};
 		// preparing items grid
 		// shaping inventory items into html
@@ -148,7 +161,15 @@ const InventoryComponent = ({ isActive, inventory }: { isActive: boolean; invent
 							</svg>
 						</div>
 						<form action="" className="inventory__search-form">
-							<input type="text" name="" id="" className="inventory__search-text-input" placeholder="Search..." onChange={tabSearch} />
+							<input
+								type="text"
+								name=""
+								id=""
+								className="inventory__search-text-input"
+								placeholder="Search..."
+								onChange={(e) => setSearchString(e.target.value)}
+								value={searchString}
+							/>
 						</form>
 					</div>
 					<div className="inventory__scroll scroll">
